@@ -7,20 +7,23 @@
         mc:Ignorable="d"
         Title="wndItems" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="239" Margin="63,61,0,0" VerticalAlignment="Top" Width="657" CanUserAddRows="False">
+        <!--Data Grid to display the items in the def table-->
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="239" Margin="50,25,0,0" VerticalAlignment="Top" Width="700" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Code" Width="100"/>
                 <DataGridTextColumn Header="Cost" Width="100"/>
-                <DataGridTextColumn Header="Description" Width="250"/>
+                <DataGridTextColumn Header="Description" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtBoxItemCode" HorizontalAlignment="Left" Height="23" Margin="63,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="txtBoxCostChange" HorizontalAlignment="Left" Height="23" Margin="264,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtBoxDescriptionChange" HorizontalAlignment="Left" Height="23" Margin="539,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="63,369,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="264,369,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="474,369,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="636,369,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <TextBox x:Name="txtBoxItemCode" HorizontalAlignment="Left" Height="23" Margin="50,262,0,0" Text="TextBox" VerticalAlignment="Top" Width="100" IsEnabled="False"/>
+        <TextBox x:Name="txtBoxCostChange" HorizontalAlignment="Left" Height="23" Margin="150,262,0,0"  Text="TextBox" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="txtBoxDescriptionChange" HorizontalAlignment="Left" Height="23" Margin="250,262,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="500"/>
+
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="75,335,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddItem_Click"/>
+        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="350,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="625,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="700,371,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

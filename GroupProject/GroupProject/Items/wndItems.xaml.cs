@@ -23,5 +23,10 @@ namespace GroupProject.Items
         {
             InitializeComponent();
         }
+
+        private void BtnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
