@@ -6,7 +6,18 @@
         xmlns:local="clr-namespace:GroupProject.Main"
         mc:Ignorable="d"
         Title="wndMain" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="20">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Menu">
+                    <MenuItem Header="Update Table"  Click="mnuUpdate_Click"/>
+                    <MenuItem Header="Search Invoice" Click="mnuSearch_Click" />
+                    
+                </MenuItem>
+            </Menu>
+            <TextBox AcceptsReturn="True" />
+        </DockPanel>
         
+
     </Grid>
 </Window>

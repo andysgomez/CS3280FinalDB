@@ -23,5 +23,15 @@ namespace GroupProject.Main
         {
             InitializeComponent();
         }
+
+        private void mnuSearch_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void mnuUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
