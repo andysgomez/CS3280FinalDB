@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:GroupProject.Search"
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800" Closing="Window_Closing">
-    <Grid>
-        
+    <Grid Margin="20">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15"/>
+            <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15"/>
+        </StackPanel>
     </Grid>
 </Window>

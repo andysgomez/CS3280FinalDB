@@ -12,7 +12,9 @@
                 <MenuItem Header="Menu">
                     <MenuItem Header="Update Table"  Click="mnuUpdate_Click"/>
                     <MenuItem Header="Search Invoice" Click="mnuSearch_Click" />
-                    
+                    <Separator />
+                    <MenuItem Header="Exit" Click="mnuExit_Click"/>
+
                 </MenuItem>
             </Menu>
             <TextBox AcceptsReturn="True" />

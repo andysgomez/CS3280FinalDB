@@ -20,6 +20,9 @@ namespace GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+        /// <summary>
+        /// wndSearch initializer
+        /// </summary>
         public wndSearch()
         {
             try
@@ -81,6 +84,42 @@ namespace GroupProject.Search
             {
                 e.Cancel = true;
                 this.Hide();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// select button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSelect_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// cancel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
             }
             catch (Exception ex)
             {
