@@ -7,9 +7,23 @@
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800" Closing="Window_Closing">
     <Grid Margin="20">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15"/>
-            <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Center" Grid.Row="0">
+                <ComboBox />
+                <ComboBox />
+                <ComboBox />
+            </StackPanel>
+            <DataGrid Grid.Row="1">
+            
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
+                <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15"/>
+                <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15"/>
+            </StackPanel>
+       
     </Grid>
 </Window>
