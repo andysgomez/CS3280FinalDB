@@ -34,11 +34,6 @@ namespace GroupProject.Main
         wndSearch wndSearch;
 
         /// <summary>
-        /// object to use to access the database
-        /// </summary>
-        clsMainSQL clsMainSQL;
-
-        /// <summary>
         /// business logic for main class
         /// </summary>
         clsMainLogic clsMainLogic;
@@ -74,11 +69,13 @@ namespace GroupProject.Main
 
                 //initialize business and sql handles
                 clsMainLogic = new clsMainLogic();
-                clsMainSQL = new clsMainSQL();
 
-                items = clsMainSQL.getItems();
 
-                cboItems.ItemsSource = items;
+                //get the items from the logic class
+                updateItems();      
+
+                //populate combobox
+                loadItemsCBO();
                 
             }
             catch (Exception ex)
@@ -88,6 +85,8 @@ namespace GroupProject.Main
             }
 
         }
+
+
         /// <summary>
         /// Exception handling method, 
         /// call this from any top level methods and button click methods.
@@ -204,6 +203,36 @@ namespace GroupProject.Main
             }
         }
 
-       // private void loadItemsCBO
+
+        /// <summary>
+        /// call this to fill the items combo box
+        /// </summary>
+        private void loadItemsCBO()
+        {
+            try
+            {
+                cboItems.ItemsSource = items;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name +
+                    "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Updates the items bindinglist for use in the items combobox
+        /// </summary>
+        private void updateItems()
+        {
+            try
+            {
+                items = clsMainLogic.getItems();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

@@ -21,6 +21,10 @@ namespace GroupProject.Main
         /// </summary>
         private clsDataAccess db;
 
+        /// <summary>
+        /// A binding list for the items
+        /// to be used as a source for a dropdown menu
+        /// </summary>
         private BindingList<Item> items;
 
         public clsMainSQL()

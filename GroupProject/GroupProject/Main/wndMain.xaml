@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="wndMain" Height="450" Width="800">
     <Grid Margin="20">
-        <DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Menu">
                     <MenuItem Header="Update Table"  Click="mnuUpdate_Click"/>
@@ -20,7 +24,7 @@
             <TextBox AcceptsReturn="True" />
         </DockPanel>
 
-        <Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
