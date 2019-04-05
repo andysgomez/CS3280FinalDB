@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\GroupProject",
+    "\\GroupProject\\GroupProject",
+    "\\GroupProject\\GroupProject\\Main",
     "\\Search"
   ],
+  "SelectedNode": "\\GroupProject\\GroupProject\\Main\\wndMain.xaml",
   "PreviewInSolutionExplorer": false
 }
