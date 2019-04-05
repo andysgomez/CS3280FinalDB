@@ -2,6 +2,7 @@
 using GroupProject.Search;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,11 +34,31 @@ namespace GroupProject.Main
         wndSearch wndSearch;
 
         /// <summary>
+        /// object to use to access the database
+        /// </summary>
+        clsMainSQL clsMainSQL;
+
+        /// <summary>
+        /// business logic for main class
+        /// </summary>
+        clsMainLogic clsMainLogic;
+
+        /// <summary>
+        /// binding list used for the items combobox
+        /// </summary>
+        BindingList<Item> items;
+
+        /// <summary>
         /// wndMain COnstructor
         /// initialize all windows in here
         /// </summary>
         public wndMain()
         {
+
+            //  need to be able to:
+            //      create new invoices
+            //      edit existing invoices
+            //      delete existing invoices
             try
             {
                 InitializeComponent();
@@ -46,8 +67,19 @@ namespace GroupProject.Main
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
                 //initialize the other windows
+                //this will likely be where I pass
+                //handles to the db and whatever
                 wndItems = new wndItems();
                 wndSearch = new wndSearch();
+
+                //initialize business and sql handles
+                clsMainLogic = new clsMainLogic();
+                clsMainSQL = new clsMainSQL();
+
+                items = clsMainSQL.getItems();
+
+                cboItems.ItemsSource = items;
+                
             }
             catch (Exception ex)
             {
@@ -150,5 +182,28 @@ namespace GroupProject.Main
                                 MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// This is what happens when the item selected from the drop down menu has changed
+        /// it should change a label that displays the cost
+        /// and enable the add item button
+        /// to add it to the currently selected invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+       // private void loadItemsCBO
     }
 }
