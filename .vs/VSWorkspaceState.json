@@ -3,9 +3,11 @@
     "",
     "\\GroupProject",
     "\\GroupProject\\GroupProject",
+    "\\GroupProject\\GroupProject\\Items",
     "\\GroupProject\\GroupProject\\Main",
-    "\\Search"
+    "\\GroupProject\\GroupProject\\Properties",
+    "\\GroupProject\\GroupProject\\Search"
   ],
-  "SelectedNode": "\\GroupProject\\GroupProject\\Main\\wndMain.xaml",
+  "SelectedNode": "\\GroupProject\\GroupProject",
   "PreviewInSolutionExplorer": false
 }
