@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace GroupProject.Search
 {
-    class clsSearchSQL
+    /// <summary>
+    /// this class will handle all db operations
+    /// with the help of the clsDataAccess 
+    /// class provided for us for the search window
+    /// </summary>
+    public class clsSearchSQL
     {
+
+        /// <summary>
+        /// Database access class
+        /// </summary>
+        private clsDataAccess db;
+
+        public clsSearchSQL()
+        {
+
+        }
     }
 }
