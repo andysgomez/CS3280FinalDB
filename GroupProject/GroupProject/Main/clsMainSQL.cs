@@ -172,7 +172,7 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="invoiceNumber"></param>
         /// <returns></returns>
-        BindingList<Item> loadInvoiceItems(int invoiceNumber)
+        private BindingList<Item> loadInvoiceItems(int invoiceNumber)
         {
             try
             {
