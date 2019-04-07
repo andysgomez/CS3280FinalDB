@@ -121,14 +121,23 @@ namespace GroupProject.Items
         }
 
 
+        /// <summary>
+        /// Update a specific item in the database
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="itemDesc"></param>
+        /// <param name="newCost"></param>
+        /// <returns>returns the number of items updated</returns>
         public int updateItem(string itemCode, string itemDesc, double newCost)
         {
             //Update ItemDesc Set ItemDesc = 'abcdef', Cost = 123 where ItemCode = 'A'
             try
             {
-                string sSQL = "Update ItemDesc Set ItemDesc = '" + itemDesc + "', Cost = ";
+                string sSQL = "Update ItemDesc Set ItemDesc = '" + itemDesc +
+                    "', Cost = " + newCost + " where ItemCode = '" + itemCode + "'";
 
-                return 0;
+               return db.ExecuteNonQuery(sSQL);
+               
             }
             catch (Exception ex)
             {
@@ -138,12 +147,49 @@ namespace GroupProject.Items
             }
         }
 
-            /*
-            * Items Window
-            - Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
-            - Delete from ItemDesc Where ItemCode = 'ABC'
-            */
+        /// <summary>
+        /// adds a new item to the database
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="itemDesc"></param>
+        /// <param name="itemCost"></param>
+        /// <returns></returns>
+        public int addNewItemToDataBase(string itemCode, string itemDesc, double itemCost)
+        {
+            //Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
+            try
+            {
+                string sSQL = "INSERT into ItemDesc (ItemCode, ItemDesc, Cost) Values ('" +
+                    itemCode + "', '" + itemDesc + "', " + itemCost + ")";
+                return db.ExecuteNonQuery(sSQL);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
 
+        /// <summary>
+        /// Delete an item from the database
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public int deleteItemFromDataBase(string itemCode)
+        {
+            try
+            {
+                string sSQL = "Delete from ItemDesc Where ItemCode = '" + itemCode + "'";
+                return db.ExecuteNonQuery(sSQL);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }           
     }
 }
