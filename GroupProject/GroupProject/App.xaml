@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GroupProject"
              StartupUri="Main/wndMain.xaml">
+    <!-- Edit the global style here guys-->
     <Application.Resources>
-         
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
     </Application.Resources>
 </Application>
