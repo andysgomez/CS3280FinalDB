@@ -53,7 +53,7 @@ namespace GroupProject.Main
         /// delete an invoice from the database
         /// </summary>
         /// <param name="invoiceNumber">The invoice number to delete</param>
-        private void deleteInvoice(int invoiceNumber)
+        public void deleteInvoice(int invoiceNumber)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace GroupProject.Main
         /// <param name="date"></param>
         /// <param name="totalCost"></param>
         /// <returns></returns>
-        private int addInvoiceToDataBase(DateTime date, double totalCost)
+        public int addInvoiceToDataBase(DateTime date, double totalCost)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace GroupProject.Main
         /// <param name="invoiceNumber"></param>
         /// <param name="lineItemNumber"></param>
         /// <param name="itemCode"></param>
-        private void addItemToInvoice(int invoiceNumber, int lineItemNumber, string itemCode)
+        public void addItemToInvoice(int invoiceNumber, int lineItemNumber, string itemCode)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="invoiceNum"></param>
         /// <returns></returns>
-        private Invoice getInvoice(int invoiceNum)
+        public Invoice getInvoice(int invoiceNum)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="invoiceNumber"></param>
         /// <returns></returns>
-        private BindingList<Item> loadInvoiceItems(int invoiceNumber)
+        public BindingList<Item> loadInvoiceItems(int invoiceNumber)
         {
             try
             {
@@ -212,7 +212,7 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="cost">the new cost</param>
         /// <param name="invoiceNumber">The invoice number</param>
-        private void updateCost(double cost, int invoiceNumber)
+        public void updateCost(double cost, int invoiceNumber)
         {
             try
             {

@@ -121,11 +121,25 @@ namespace GroupProject.Items
         }
 
 
+        public int updateItem(string itemCode, string itemDesc, double newCost)
+        {
+            //Update ItemDesc Set ItemDesc = 'abcdef', Cost = 123 where ItemCode = 'A'
+            try
+            {
+                string sSQL = "Update ItemDesc Set ItemDesc = '" + itemDesc + "', Cost = ";
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
             /*
             * Items Window
-           
-            - Update ItemDesc Set ItemDesc = 'abcdef', Cost = 123 where ItemCode = 'A'
             - Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
             - Delete from ItemDesc Where ItemCode = 'ABC'
             */
