@@ -45,9 +45,9 @@
 
             <!--Buttons to give this window some functions-->
             <StackPanel Orientation="Vertical" Margin="15" Grid.Column="1">
-                <Button x:Name="btnNew" Content="New Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="#FFDEFFDE"/>
-                <Button x:Name="btnEdit" Content="Edit Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="#FFFFF9D0"/>
-                <Button x:Name="btnDelete"  Margin="0,5" FontFamily="Rockwell" FontSize="14" Height="61" Background="#FFFFC7C7">
+                <Button x:Name="btnNew" Content="New Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2"/>
+                <Button x:Name="btnEdit" Content="Edit Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2"/>
+                <Button x:Name="btnDelete"  Margin="0,5" FontFamily="Rockwell" FontSize="14" Height="61" Background="White" BorderBrush="Black" BorderThickness="2">
                     <TextBlock Text="Delete Selected Invoice" TextWrapping="Wrap" TextAlignment="Center"/>
                 </Button>
             </StackPanel>
