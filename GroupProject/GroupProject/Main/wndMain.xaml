@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Main"
         mc:Ignorable="d"
-        Title="wndMain" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#FFC3C3C3">
+        Title="wndMain" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <RadialGradientBrush>
+            <GradientStop Color="White"/>
+            <GradientStop Color="#FFFFEAEA" Offset="0.736"/>
+        </RadialGradientBrush>
+    </Window.Background>
+    <Window.BindingGroup>
+        <BindingGroup/>
+    </Window.BindingGroup>
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -28,30 +37,28 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>   
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Data Grid to display the invoice-->
-            <DataGrid Grid.Column="0">
-                
-            </DataGrid>
-            
+            <DataGrid Grid.Column="0" Background="White"/>
+
             <!--Buttons to give this window some functions-->
             <StackPanel Orientation="Vertical" Margin="15" Grid.Column="1">
-                <Button x:Name="btnNew" Content="New Invoice" Margin="0 5"/>
-                <Button x:Name="btnEdit" Content="Edit Invoice" Margin="0 5" />
-                <Button x:Name="btnDelete" Content="Delete Selected Invoice" Margin="0 5" />
+                <Button x:Name="btnNew" Content="New Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="#FFDEFFDE"/>
+                <Button x:Name="btnEdit" Content="Edit Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="#FFFFF9D0"/>
+                <Button x:Name="btnDelete"  Margin="0,5" FontFamily="Rockwell" FontSize="14" Height="61" Background="#FFFFC7C7">
+                    <TextBlock Text="Delete Selected Invoice" TextWrapping="Wrap" TextAlignment="Center"/>
+                </Button>
             </StackPanel>
-            
+
             <!--Drop Down Menu for hte Items-->
             <StackPanel Grid.Column="2" Orientation="Vertical" Margin="15">
-                <ComboBox x:Name="cboItems" SelectedIndex="-1" Padding="2" Margin="2" SelectionChanged="cboItem_SelectionChanged" >
-                    
-                </ComboBox>
+                <ComboBox x:Name="cboItems" SelectedIndex="-1" Padding="2" Margin="2" SelectionChanged="cboItem_SelectionChanged" Background="{x:Null}" BorderBrush="White" FontFamily="Rockwell" FontSize="9"/>
             </StackPanel>
 
         </Grid>
-        
+
 
     </Grid>
 </Window>
