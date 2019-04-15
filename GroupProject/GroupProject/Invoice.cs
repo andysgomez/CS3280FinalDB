@@ -1,18 +1,19 @@
 ﻿using GroupProject.Main;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroupProject
+namespace GroupProject 
 {
     /// <summary>
     /// A class to hold data for Invoice objects
     /// </summary>
-    public class Invoice
+    public class Invoice : INotifyPropertyChanged
     {
         /// <summary>
         /// The invoice number
@@ -32,13 +33,54 @@ namespace GroupProject
         /// <summary>
         /// the list of items on the invoice
         /// </summary>
-        private BindingList<Item> items;
+        private ObservableCollection<Item> items;
+
+        /// <summary>
+        /// Contract
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public int InvoiceNumber { get => invoiceNumber; set => invoiceNumber = value; }
-        public DateTime InvoiceDate { get => invoiceDate; set => invoiceDate = value; }
-        public double TotalCost { get => totalCost; set => totalCost = value; }
-        public BindingList<Item> Items { get => items; set => items = value; }
+        public int InvoiceNumber
+        {
+            get => invoiceNumber;
+            set
+            {
+                invoiceNumber = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("InvoiceNumber"));
+            }
+        }
+        public DateTime InvoiceDate
+        {
+            get => invoiceDate;
+            set
+            {
+                invoiceDate = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("InvoiceDate"));
+            }
+        }
+        public double TotalCost
+        {
+            get => totalCost;
+            set
+            {
+                totalCost = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TotalCost"));
+            }
+        }
+        public ObservableCollection<Item> Items
+        {
+            get => items;
+            set
+            {
+                items = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Items"));
+            }
+        }
 
 
         /// <summary>
@@ -65,7 +107,7 @@ namespace GroupProject
         /// <param name="date"></param>
         /// <param name="totalCost"></param>
         /// <param name="items"></param>
-        public Invoice(int invoiceNumber, DateTime date, double totalCost, BindingList<Item> items)
+        public Invoice(int invoiceNumber, DateTime date, double totalCost, ObservableCollection<Item> items)
         {
             try
             {

@@ -2,6 +2,7 @@
 using GroupProject.Search;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -41,7 +42,9 @@ namespace GroupProject.Main
         /// <summary>
         /// binding list used for the items combobox
         /// </summary>
-        BindingList<Item> items;
+        ObservableCollection<Item> cboItemsList;
+
+        
 
         /// <summary>
         /// wndMain COnstructor
@@ -76,6 +79,9 @@ namespace GroupProject.Main
 
                 //populate combobox
                 loadItemsCBO();
+
+               
+                dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
                 
             }
             catch (Exception ex)
@@ -194,7 +200,7 @@ namespace GroupProject.Main
         {
             try
             {
-
+               
             }
             catch (Exception ex)
             {
@@ -211,7 +217,7 @@ namespace GroupProject.Main
         {
             try
             {
-                cboItems.ItemsSource = items;
+                cboItems.ItemsSource = cboItemsList;
             }
             catch (Exception ex)
             {
@@ -227,11 +233,40 @@ namespace GroupProject.Main
         {
             try
             {
-                items = clsMainLogic.getItems();
+                cboItemsList = clsMainLogic.getItemsSold();
             }
             catch (Exception ex)
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Adds the currently selected Item to the current invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cboItems.SelectedIndex != -1)
+                {
+                    Item toAdd = (Item)cboItems.SelectedItem;
+
+                    //sCode = toAdd.ItemCode;
+                   
+                    clsMainLogic.addItemToCurrInvoice(toAdd);
+                   
+                    txtInvoiceTotal.Text = clsMainLogic.CurrentInvoiceCost.ToString();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
     }

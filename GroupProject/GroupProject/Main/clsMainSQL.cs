@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace GroupProject.Main
         /// A binding list for the items
         /// to be used as a source for a dropdown menu
         /// </summary>
-        private BindingList<Item> items;
+        private ObservableCollection<Item> items;
 
         /// <summary>
         /// Constructor for sql worker
@@ -35,7 +36,7 @@ namespace GroupProject.Main
             try
             {
                 db = new clsDataAccess();
-                items = new BindingList<Item>();
+                items = new ObservableCollection<Item>();
 
                 loadItems();
             }
@@ -149,7 +150,7 @@ namespace GroupProject.Main
                     double tc;
                     double.TryParse(invCost, out tc);
                    
-                    BindingList<Item> items = loadInvoiceItems(iNumber);
+                    ObservableCollection<Item> items = loadInvoiceItems(iNumber);
                     temp = new Invoice(iNumber, dt, tc, items);
                 }
 
@@ -172,11 +173,11 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="invoiceNumber"></param>
         /// <returns></returns>
-        public BindingList<Item> loadInvoiceItems(int invoiceNumber)
+        public ObservableCollection<Item> loadInvoiceItems(int invoiceNumber)
         {
             try
             {
-                BindingList<Item> tempList = new BindingList<Item>();
+                ObservableCollection<Item> tempList = new ObservableCollection<Item>();
                 int iRet = 0;
 
                 //these sql statements are taken from the help files
@@ -267,7 +268,7 @@ namespace GroupProject.Main
         /// gets the items object
         /// </summary>
         /// <returns></returns>
-        public BindingList<Item> getItems()
+        public ObservableCollection<Item> getItems()
         {
             try
             {
