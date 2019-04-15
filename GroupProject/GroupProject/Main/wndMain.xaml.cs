@@ -291,5 +291,25 @@ namespace GroupProject.Main
                                 MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Logic for the save button.
+        /// Should save the current invoice items 
+        /// to the data base
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSaveInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clsMainLogic.saveInvoice();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
     }
 }

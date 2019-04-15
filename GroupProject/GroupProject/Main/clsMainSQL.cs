@@ -83,7 +83,7 @@ namespace GroupProject.Main
             try
             {
                 string dateString = date.ToShortDateString();
-                string sSQL = "INSERT INTO Invoices (InvoiceDate, TotalCost) Values ('#" + dateString + "#'," + totalCost + ")";
+                string sSQL = "INSERT INTO Invoices (InvoiceDate, TotalCost) Values (#"+dateString +"#,"+totalCost +")";
                 db.ExecuteNonQuery(sSQL);
                 int invoiceNum = 0;
                 sSQL = "SELECT MAX(InvoiceNum) FROM Invoices";

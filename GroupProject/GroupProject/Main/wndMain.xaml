@@ -42,7 +42,10 @@
 
             <!--Data Grid to display the invoice-->
             <StackPanel Orientation="Vertical" Margin="10" Grid.Column="0" >
-                <TextBlock x:Name="txtInvoiceNumber" Text="To be Determined" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                    <TextBlock  Text="Invoice Number: "/>
+                    <TextBlock x:Name="txtInvoiceNumber" Text="TBD"/>
+                </StackPanel>
                 <DataGrid x:Name="dgCurrentInvoice" AutoGenerateColumns="False" Grid.Column="0" Background="White" VerticalAlignment="Stretch" MinHeight="290" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Code" Binding="{Binding Path=ItemCode}"/>
@@ -57,9 +60,8 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    
-                    <Button x:Name="btnSaveInvoice" Content="Save"  Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">                    
+                    <Button x:Name="btnSaveInvoice" Content="Save"  Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2" Click="BtnSaveInvoice_Click"/>
                     <TextBlock x:Name="txtInvoiceTotal" Text="$0.00" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0" FontFamily="Rockwell" FontSize="14"/>
                 </StackPanel>
             </StackPanel>

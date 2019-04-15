@@ -108,7 +108,11 @@ namespace GroupProject.Main
             }
         }
 
-        
+        /// <summary>
+        /// calculates and returns the cost of the invoice currently 
+        /// visible
+        /// </summary>
+        /// <returns></returns>
         private double getCalculateInvoiceCost()
         {
 
@@ -187,6 +191,32 @@ namespace GroupProject.Main
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
            
+        }
+
+        /// <summary>
+        /// save an invoice to the database
+        /// </summary>
+        internal void saveInvoice()
+        {
+            try
+            {
+                if(getCalculateInvoiceCost() > 0)//make sure the invoice has something in it
+                {
+                    int lineItem = 1;
+                    int invoiceNumber = clsMainSQL.addInvoiceToDataBase(DateTime.Now, getCalculateInvoiceCost());
+                    foreach (Item item in currentInvoiceItems)
+                    {
+                        clsMainSQL.addItemToInvoice(invoiceNumber, lineItem, item.ItemCode);
+                        lineItem++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }
