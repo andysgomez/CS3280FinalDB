@@ -69,7 +69,7 @@
             <StackPanel Orientation="Vertical" Margin="15" Grid.Column="1">
                 <Button x:Name="btnNew" Content="New Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2"/>
                 <Button x:Name="btnEdit" Content="Edit Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2"/>
-                <Button x:Name="btnDelete"  Margin="0,5" FontFamily="Rockwell" FontSize="14" Height="61" Background="White" BorderBrush="Black" BorderThickness="2">
+                <Button x:Name="btnDelete"  Margin="0,5" FontFamily="Rockwell" FontSize="14" Height="61" Background="White" BorderBrush="Black" BorderThickness="2" Click="BtnDelete_Click">
                     <TextBlock Text="Delete Selected Invoice" TextWrapping="Wrap" TextAlignment="Center"/>
                 </Button>
             </StackPanel>

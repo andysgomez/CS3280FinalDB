@@ -58,11 +58,18 @@ namespace GroupProject.Main
         ObservableCollection<Item> currentInvoiceItems;
 
         /// <summary>
+        /// The invoice number of the invoice
+        /// currently being edited
+        /// </summary>
+        private int currentInvoiceNumber;
+
+        /// <summary>
         /// The current cost of the currently displayed invoice
         /// </summary>
         private double currentInvoiceCost;
 
         public double CurrentInvoiceCost { get => currentInvoiceCost; set => currentInvoiceCost = value; }
+        public int CurrentInvoiceNumber { get => currentInvoiceNumber; set => currentInvoiceNumber = value; }
 
         /// <summary>
         /// Constructor for the MainLogic
@@ -71,6 +78,7 @@ namespace GroupProject.Main
         {
             try
             {
+                CurrentInvoiceNumber = -1;
                 CurrentInvoiceCost = 0;
                 clsMainSQL = new clsMainSQL();
                 items = clsMainSQL.getItems();
@@ -204,11 +212,34 @@ namespace GroupProject.Main
                 {
                     int lineItem = 1;
                     int invoiceNumber = clsMainSQL.addInvoiceToDataBase(DateTime.Now, getCalculateInvoiceCost());
+                    CurrentInvoiceNumber = invoiceNumber;
                     foreach (Item item in currentInvoiceItems)
                     {
                         clsMainSQL.addItemToInvoice(invoiceNumber, lineItem, item.ItemCode);
                         lineItem++;
                     }
+                    
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// method called to delete an invoice from the database
+        /// </summary>
+        internal void deleteCurrentInvoice()
+        {
+            try
+            {
+                if(currentInvoiceNumber != -1)
+                {
+                    clsMainSQL.deleteInvoice(currentInvoiceNumber);
                 }
             }
             catch (Exception ex)

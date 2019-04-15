@@ -44,7 +44,14 @@ namespace GroupProject.Main
         /// </summary>
         ObservableCollection<Item> cboItemsList;
 
-        
+        /// <summary>
+        /// the number of the current invoice
+        /// used to delete and edit invoices 
+        /// from the search window
+        /// </summary>
+        int currentInvoiceNumber;
+
+        public int CurrentInvoiceNumber { get => currentInvoiceNumber; set => currentInvoiceNumber = value; }
 
         /// <summary>
         /// wndMain COnstructor
@@ -82,6 +89,8 @@ namespace GroupProject.Main
 
                
                 dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
+
+                CurrentInvoiceNumber = -1;
                 
             }
             catch (Exception ex)
@@ -304,6 +313,40 @@ namespace GroupProject.Main
             try
             {
                 clsMainLogic.saveInvoice();
+                int invoNum = clsMainLogic.CurrentInvoiceNumber;
+                if (invoNum != -1)
+                {
+                    txtInvoiceNumber.Text = invoNum.ToString();
+                }
+                else
+                {
+                    txtInvoiceNumber.Text = "TBD";
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic for delete invoice button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int invoNum = clsMainLogic.CurrentInvoiceNumber;
+               
+
+                if(invoNum != -1)
+                {
+                    clsMainLogic.deleteCurrentInvoice();
+                }
+
             }
             catch (Exception ex)
             {
