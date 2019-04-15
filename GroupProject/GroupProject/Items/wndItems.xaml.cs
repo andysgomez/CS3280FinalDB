@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GroupProject.Main;
+using GroupProject.Search;
 
 namespace GroupProject.Items
 {
@@ -20,11 +22,18 @@ namespace GroupProject.Items
     /// </summary>
     public partial class wndItems : Window
     {
+        clsItemsLogicSQL clsItemLogic;
+
+        
+
+
+
         public wndItems()
         {
             try
             {
                 InitializeComponent();
+
             }
             catch (Exception ex)
             {

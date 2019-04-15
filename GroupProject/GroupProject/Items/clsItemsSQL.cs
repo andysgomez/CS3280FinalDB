@@ -44,9 +44,8 @@ namespace GroupProject.Items
         /// <summary>
         /// Get a list of all the items in the database
         /// </summary>
-        /// <param name="itemDesc"></param>
         /// <returns></returns>
-        public BindingList<Item> getItems(string itemDesc)
+        public BindingList<Item> getItems()
         {
             //select ItemCode, ItemDesc, Cost from ItemDesc
             try
@@ -120,6 +119,38 @@ namespace GroupProject.Items
             }
         }
 
+        /// <summary>
+        /// Executes SQL that returns if item is in an invoice
+        /// </summary>
+        /// <param name="sItemCode"></param>
+        /// <returns>true if there are no invoices with that item, false if there is</returns>
+        public bool CheckInvoices(string sItemCode)
+        {
+            try
+            {
+                int iRet = 0;
+
+                string sSQL = "SELECT DISTINCT(InvoiceNum) FROM LineItems WHERE ItemCode = '" + sItemCode + "';";
+                DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
+
+                //checks the returned number of selected rows
+                if (iRet == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Update a specific item in the database
@@ -147,6 +178,8 @@ namespace GroupProject.Items
             }
         }
 
+
+
         /// <summary>
         /// adds a new item to the database
         /// </summary>
@@ -166,6 +199,37 @@ namespace GroupProject.Items
             catch (Exception ex)
             {
 
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// uses SQL to determine if itemcode is already used in item desc table
+        /// </summary>
+        /// <param name="sItemCode"></param>
+        /// <returns>bool true if item code doesn't exist
+        /// returns false if it does</returns>
+        public bool checkItemCode(string sItemCode)
+        {
+            try
+            {
+                string sSQL = "SELECT DISTINCT(ItemCode) FROM ItemDesc WHERE ItemCode = '" + sItemCode + "'";
+
+                string sHolderString = db.ExecuteScalarSQL(sSQL);
+
+
+                if (sHolderString == "")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
