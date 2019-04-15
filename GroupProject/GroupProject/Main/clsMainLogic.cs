@@ -145,5 +145,26 @@ namespace GroupProject.Main
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// remove an item from the current invoice
+        /// </summary>
+        /// <param name="toDelete"></param>
+        internal void deleteFromCurrInvoice(Item toDelete)
+        {
+            try
+            {
+                currentInvoiceItems.Remove(toDelete);
+                CurrentInvoiceCost -= toDelete.ItemCost;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+           
+        }
     }
 }

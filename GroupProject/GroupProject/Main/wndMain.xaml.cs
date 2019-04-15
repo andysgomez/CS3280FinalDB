@@ -255,13 +255,35 @@ namespace GroupProject.Main
                 {
                     Item toAdd = (Item)cboItems.SelectedItem;
 
-                    //sCode = toAdd.ItemCode;
+                   
                    
                     clsMainLogic.addItemToCurrInvoice(toAdd);
                    
                     txtInvoiceTotal.Text = clsMainLogic.CurrentInvoiceCost.ToString();
                 }
                
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Logic for handling a delete button click in the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btbDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+                Item toDelete = (Item)dgCurrentInvoice.SelectedItem;
+                clsMainLogic.deleteFromCurrInvoice(toDelete);
+                txtInvoiceTotal.Text = clsMainLogic.CurrentInvoiceCost.ToString();
             }
             catch (Exception ex)
             {

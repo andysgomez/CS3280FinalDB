@@ -51,8 +51,7 @@
                         <DataGridTemplateColumn Header="Delete">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Delete"
-                            Command="Delete"/>
+                                    <Button Content="Delete"  Command="Delete" Click="btbDeleteItem_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
