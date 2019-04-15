@@ -258,8 +258,8 @@ namespace GroupProject.Main
                    
                    
                     clsMainLogic.addItemToCurrInvoice(toAdd);
-                   
-                    txtInvoiceTotal.Text = clsMainLogic.CurrentInvoiceCost.ToString();
+
+                    txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
                 }
                
             }
@@ -283,7 +283,7 @@ namespace GroupProject.Main
                 
                 Item toDelete = (Item)dgCurrentInvoice.SelectedItem;
                 clsMainLogic.deleteFromCurrInvoice(toDelete);
-                txtInvoiceTotal.Text = clsMainLogic.CurrentInvoiceCost.ToString();
+                txtInvoiceTotal.Text = "$"+ clsMainLogic.CurrentInvoiceCost.ToString()+".00";
             }
             catch (Exception ex)
             {

@@ -96,7 +96,7 @@ namespace GroupProject.Main
                 if(itemToAdd != null)
                 {
                     currentInvoiceItems.Add(itemToAdd);
-                    CurrentInvoiceCost += itemToAdd.ItemCost;
+                    currentInvoiceCost = getCalculateInvoiceCost();
                 }
                     
             }
@@ -109,6 +109,28 @@ namespace GroupProject.Main
         }
 
         
+        private double getCalculateInvoiceCost()
+        {
+
+            try
+            {
+                double temp = 0;
+
+                foreach (Item item in currentInvoiceItems)
+                {
+                    temp += item.ItemCost;
+                }
+
+                return temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+           
+        }
 
         /// <summary>
         /// gets the items object
@@ -156,7 +178,7 @@ namespace GroupProject.Main
             try
             {
                 currentInvoiceItems.Remove(toDelete);
-                CurrentInvoiceCost -= toDelete.ItemCost;
+                currentInvoiceCost = getCalculateInvoiceCost();
             }
             catch (Exception ex)
             {
