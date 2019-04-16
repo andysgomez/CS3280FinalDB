@@ -151,6 +151,7 @@ namespace GroupProject.Main
                 this.Hide();
                 wndSearch.ShowDialog();
                 this.Show();
+                
             }
             catch (Exception ex)
             {
@@ -353,6 +354,17 @@ namespace GroupProject.Main
                 if (invoNum != -1)
                 {
                     clsMainLogic.deleteCurrentInvoice();
+                    clsMainLogic.EditingInvoice = false;
+                    clsMainLogic.MakingNewInvoice = false;
+                    txtInvoiceNumber.Text = "TBD";
+                    txtInvoiceTotal.Text = "$0.00";
+                    dgCurrentInvoice.IsEnabled = false;
+                    btnAddItem.IsEnabled = false;
+                    cboItems.SelectedIndex = -1;
+                    cboItems.IsEnabled = false;
+                    btnEdit.IsEnabled = false;
+                    btnNew.IsEnabled = true;
+                    btnSaveInvoice.IsEnabled = false;
                 }
 
             }
@@ -395,9 +407,37 @@ namespace GroupProject.Main
         /// <param name="e"></param>
         private void TheDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Delete)
+            try
             {
-                btnDeleteItem_Click(sender, e);
+                if (e.Key == Key.Delete)
+                {
+                    btnDeleteItem_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+           
+        }
+
+        /// <summary>
+        /// logic for the edit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clsMainLogic.EditingInvoice = true;
+                clsMainLogic.MakingNewInvoice = false;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
     }

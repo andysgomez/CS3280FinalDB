@@ -272,6 +272,10 @@ namespace GroupProject.Main
                 if(currentInvoiceNumber != -1)
                 {
                     clsMainSQL.deleteInvoice(currentInvoiceNumber);
+                    currentInvoiceNumber = -1;
+                    currentInvoiceItems.Clear();
+                    EditingInvoice = false;
+                    MakingNewInvoice = false;
                 }
             }
             catch (Exception ex)
