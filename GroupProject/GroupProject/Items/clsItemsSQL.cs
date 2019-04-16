@@ -1,6 +1,7 @@
 ﻿using GroupProject.Main;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -45,13 +46,13 @@ namespace GroupProject.Items
         /// Get a list of all the items in the database
         /// </summary>
         /// <returns></returns>
-        public BindingList<Item> getItems()
+        public ObservableCollection<Item> getItems()
         {
             //select ItemCode, ItemDesc, Cost from ItemDesc
             try
             {
                 int iRet = 0;
-                BindingList<Item> temp = new BindingList<Item>();
+                ObservableCollection<Item> temp = new ObservableCollection<Item>();
                 string sSQL = "select ItemCode, ItemDesc, Cost from ItemDesc";
 
                 DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
@@ -86,13 +87,13 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public BindingList<int> getInvoicesThatIncludeItem(string itemCode)
+        public ObservableCollection<int> getInvoicesThatIncludeItem(string itemCode)
         {
             //select distinct(InvoiceNum) from LineItems where ItemCode = 'A'
             //I have never used "distict" in sql before... Im not sure this one will work
             try
             {
-                BindingList<int> temp = new BindingList<int>();
+                ObservableCollection<int> temp = new ObservableCollection<int>();
                 int iRet = 0;
 
                 string sSQL = "select distinct(InvoiceNum) from LineItems where ItemCode = '" + itemCode + "'";

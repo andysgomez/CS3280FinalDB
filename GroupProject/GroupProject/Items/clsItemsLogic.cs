@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 //For sharing data between windows the logic classes will have getMethods that return and data structures
 //the other classes might need, and to indicate that changes have been made or backed out of, we plan to use
@@ -24,7 +25,7 @@ namespace GroupProject.Items
         /// <summary>
         /// binding list that will be used in the DataGrid
         /// </summary>
-        BindingList<Item> items;
+        ObservableCollection<Item> items;
 
         /// <summary>
         /// global boolean flag that will be set when something in the database is changed
@@ -53,7 +54,7 @@ namespace GroupProject.Items
         /// returns the items in the list
         /// </summary>
         /// <returns></returns>
-        public BindingList<Item> RetrieveItems()
+        public ObservableCollection<Item> RetrieveItems()
         {
             try
             {

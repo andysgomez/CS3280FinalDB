@@ -3,11 +3,8 @@
     "",
     "\\GroupProject",
     "\\GroupProject\\GroupProject",
-    "\\GroupProject\\GroupProject\\Items",
-    "\\GroupProject\\GroupProject\\Main",
-    "\\GroupProject\\GroupProject\\Properties",
-    "\\GroupProject\\GroupProject\\Search"
+    "\\GroupProject\\GroupProject\\Main"
   ],
-  "SelectedNode": "\\GroupProject\\GroupProject\\Main\\clsMainLogic.cs",
+  "SelectedNode": "\\GroupProject\\GroupProject\\Invoice.mdb",
   "PreviewInSolutionExplorer": false
 }
