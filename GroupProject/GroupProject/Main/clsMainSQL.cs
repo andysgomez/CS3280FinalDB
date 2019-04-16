@@ -72,6 +72,25 @@ namespace GroupProject.Main
         }
 
         /// <summary>
+        /// clears items from an invoice.  Used to edit invoices
+        /// </summary>
+        /// <param name="invoiceNumber"></param>
+        public void clearItemsFromInvoice(int invoiceNumber)
+        {
+            try
+            {
+                string sSQL = "DELETE from LineItems where InvoiceNum =" + invoiceNumber;
+                db.ExecuteNonQuery(sSQL);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// this method adds an invoice to the database and returns 
         /// that invoices number
         /// </summary>

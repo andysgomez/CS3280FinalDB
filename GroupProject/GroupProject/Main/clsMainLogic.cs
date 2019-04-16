@@ -68,8 +68,20 @@ namespace GroupProject.Main
         /// </summary>
         private double currentInvoiceCost;
 
+        /// <summary>
+        /// flag used for program context
+        /// </summary>
+        private bool makingNewInvoice;
+
+        /// <summary>
+        /// flag used for program context
+        /// </summary>
+        private bool editingInvoice;
+
         public double CurrentInvoiceCost { get => currentInvoiceCost; set => currentInvoiceCost = value; }
         public int CurrentInvoiceNumber { get => currentInvoiceNumber; set => currentInvoiceNumber = value; }
+        public bool MakingNewInvoice { get => makingNewInvoice; set => makingNewInvoice = value; }
+        public bool EditingInvoice { get => editingInvoice; set => editingInvoice = value; }
 
         /// <summary>
         /// Constructor for the MainLogic
@@ -83,7 +95,8 @@ namespace GroupProject.Main
                 clsMainSQL = new clsMainSQL();
                 items = clsMainSQL.getItems();
                 currentInvoiceItems = new ObservableCollection<Item>();
-
+                MakingNewInvoice = false;
+                EditingInvoice = false;
             }
             catch (Exception ex)
             {
@@ -208,7 +221,7 @@ namespace GroupProject.Main
         {
             try
             {
-                if(getCalculateInvoiceCost() > 0)//make sure the invoice has something in it
+                if(getCalculateInvoiceCost() > 0 && MakingNewInvoice == true)//make sure the invoice has something in it
                 {
                     int lineItem = 1;
                     int invoiceNumber = clsMainSQL.addInvoiceToDataBase(DateTime.Now, getCalculateInvoiceCost());
@@ -218,7 +231,26 @@ namespace GroupProject.Main
                         clsMainSQL.addItemToInvoice(invoiceNumber, lineItem, item.ItemCode);
                         lineItem++;
                     }
-                    
+                    MakingNewInvoice = false;                   
+                }
+                else if(EditingInvoice)
+                {
+                    if(getCalculateInvoiceCost() == 0)//if all items deleted and invoice "saved" delete invoice
+                    {
+                        deleteCurrentInvoice();
+                        EditingInvoice = false;
+                    }
+                    else
+                    {
+                        clsMainSQL.clearItemsFromInvoice(currentInvoiceNumber);
+                        int lineItem = 1;
+                        foreach (Item item in currentInvoiceItems)
+                        {  
+                            clsMainSQL.addItemToInvoice(CurrentInvoiceNumber, lineItem, item.ItemCode);
+                            lineItem++;
+                        }
+                        EditingInvoice = false;
+                    }
                 }
                 
             }

@@ -42,7 +42,7 @@ namespace GroupProject.Main
         /// <summary>
         /// binding list used for the items combobox
         /// </summary>
-        ObservableCollection<Item> cboItemsList;
+        ObservableCollection<Item> lstItemsForSale;
 
         /// <summary>
         /// the number of the current invoice
@@ -82,16 +82,17 @@ namespace GroupProject.Main
 
 
                 //get the items from the logic class
-                updateItems();      
+                updateItems();
 
                 //populate combobox
                 loadItemsCBO();
 
-               
+
                 dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
 
                 CurrentInvoiceNumber = -1;
-                
+
+
             }
             catch (Exception ex)
             {
@@ -209,7 +210,7 @@ namespace GroupProject.Main
         {
             try
             {
-               
+
             }
             catch (Exception ex)
             {
@@ -226,7 +227,7 @@ namespace GroupProject.Main
         {
             try
             {
-                cboItems.ItemsSource = cboItemsList;
+                cboItems.ItemsSource = lstItemsForSale;
             }
             catch (Exception ex)
             {
@@ -242,7 +243,7 @@ namespace GroupProject.Main
         {
             try
             {
-                cboItemsList = clsMainLogic.getItemsSold();
+                lstItemsForSale = clsMainLogic.getItemsSold();
             }
             catch (Exception ex)
             {
@@ -263,14 +264,14 @@ namespace GroupProject.Main
                 if (cboItems.SelectedIndex != -1)
                 {
                     Item toAdd = (Item)cboItems.SelectedItem;
+                    btnSaveInvoice.IsEnabled = true;
+                    dgCurrentInvoice.IsEnabled = true;
 
-                   
-                   
                     clsMainLogic.addItemToCurrInvoice(toAdd);
 
                     txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -285,14 +286,16 @@ namespace GroupProject.Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btbDeleteItem_Click(object sender, RoutedEventArgs e)
+        private void btnDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                
+
                 Item toDelete = (Item)dgCurrentInvoice.SelectedItem;
                 clsMainLogic.deleteFromCurrInvoice(toDelete);
-                txtInvoiceTotal.Text = "$"+ clsMainLogic.CurrentInvoiceCost.ToString()+".00";
+                txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
+
+
             }
             catch (Exception ex)
             {
@@ -317,11 +320,16 @@ namespace GroupProject.Main
                 if (invoNum != -1)
                 {
                     txtInvoiceNumber.Text = invoNum.ToString();
+                    btnDelete.IsEnabled = true;
+                    btnEdit.IsEnabled = true;
+                    clsMainLogic.EditingInvoice = false;
+                    clsMainLogic.MakingNewInvoice = false;
                 }
                 else
                 {
                     txtInvoiceNumber.Text = "TBD";
                 }
+                btnSaveInvoice.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -340,9 +348,9 @@ namespace GroupProject.Main
             try
             {
                 int invoNum = clsMainLogic.CurrentInvoiceNumber;
-               
 
-                if(invoNum != -1)
+
+                if (invoNum != -1)
                 {
                     clsMainLogic.deleteCurrentInvoice();
                 }
@@ -352,6 +360,44 @@ namespace GroupProject.Main
             {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                                 MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic for new button press
+        /// should enable the combobox
+        /// the save button
+        /// and set some flags
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnNew_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                btnAddItem.IsEnabled = true;
+                cboItems.IsEnabled = true;
+                clsMainLogic.MakingNewInvoice = true;
+                clsMainLogic.EditingInvoice = false;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// throw delete key press to the button logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TheDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                btnDeleteItem_Click(sender, e);
             }
         }
     }
