@@ -22,7 +22,7 @@ namespace GroupProject.Items
     /// </summary>
     public partial class wndItems : Window
     {
-        clsItemsLogicSQL clsItemLogic;
+        clsItemsLogic clsItemLogic;
 
         
 

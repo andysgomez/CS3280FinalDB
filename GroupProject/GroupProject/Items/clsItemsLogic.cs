@@ -14,7 +14,7 @@ using System.Reflection;
 //so the returning window can reload its data
 namespace GroupProject.Items
 {
-    class clsItemsLogicSQL
+    class clsItemsLogic
     {
         /// <summary>
         /// object for the Items SQL class
@@ -34,7 +34,7 @@ namespace GroupProject.Items
         /// <summary>
         /// Public constructor of the item logic
         /// </summary>
-        public clsItemsLogicSQL()
+        public clsItemsLogic()
         {
             try
             {
