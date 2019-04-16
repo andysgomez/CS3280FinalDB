@@ -15,7 +15,7 @@ using System.Reflection;
 //so the returning window can reload its data
 namespace GroupProject.Items
 {
-    class clsItemsLogicSQL
+    class clsItemsLogic
     {
         /// <summary>
         /// object for the Items SQL class
