@@ -106,6 +106,23 @@ namespace GroupProject.Main
             }
         }
 
+        /// <summary>
+        /// reload the catalog of items for sale
+        /// </summary>
+        internal void reloadCatalog()
+        {
+            try
+            {
+                items = clsMainSQL.getItems();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// load an invoice with specified number
