@@ -1,12 +1,12 @@
 ﻿using System;
 using GroupProject.Main;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using System.Collections.ObjectModel;
 
 //For sharing data between windows the logic classes will have getMethods that return and data structures
 //the other classes might need, and to indicate that changes have been made or backed out of, we plan to use
@@ -15,17 +15,19 @@ using System.Collections.ObjectModel;
 //so the returning window can reload its data
 namespace GroupProject.Items
 {
-    class clsItemsLogic
+    class clsItemsLogicSQL
     {
         /// <summary>
         /// object for the Items SQL class
         /// </summary>
-        clsItemsSQL clsLogicSQL;
+        private clsItemsSQL clsLogicSQL;
 
         /// <summary>
         /// binding list that will be used in the DataGrid
         /// </summary>
-        ObservableCollection<Item> items;
+        private ObservableCollection<Item> items;
+
+        //ObservableCollection<Item>
 
         /// <summary>
         /// global boolean flag that will be set when something in the database is changed
@@ -35,7 +37,7 @@ namespace GroupProject.Items
         /// <summary>
         /// Public constructor of the item logic
         /// </summary>
-        public clsItemsLogic()
+        public clsItemsLogicSQL()
         {
             try
             {
@@ -73,7 +75,7 @@ namespace GroupProject.Items
         /// <param name="sItemCode"></param>
         /// <param name="dCost"></param>
         /// <param name="sDescription"></param>
-        public int AddItem(string sItemCode, string sCost, string sDescription)
+        public void AddItem(string sItemCode, string sCost, string sDescription)
         {
             try
             {
@@ -90,21 +92,13 @@ namespace GroupProject.Items
                     //check corrected cost
                     getCost = double.TryParse(sCost, out TryingCost);
 
-                    if(getCost)
+                    if (getCost)
                     {
-                        return clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, TryingCost);
+                        clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, TryingCost);
                     }
-                    else
-                    {
-                        //return 2 if the wrong cost string is entered
-                        return 2;
-                    }
+
                 }
-                else
-                {
-                    //returns 0 if the item code is already used
-                    return 0;
-                }
+
             }
             catch (Exception ex)
             {
@@ -120,7 +114,7 @@ namespace GroupProject.Items
         /// <param name="dCost"></param>
         /// <param name="sDescription"></param>
         /// <returns></returns>
-        public int UpdateItem(string sItemCode, string sCost, string sDescription)
+        public void UpdateItem(string sItemCode, string sCost, string sDescription)
         {
             try
             {
@@ -132,13 +126,10 @@ namespace GroupProject.Items
 
                 if (getCost)
                 {
-                    return clsLogicSQL.updateItem(sItemCode, sDescription, TryingCost);
+                    clsLogicSQL.updateItem(sItemCode, sDescription, TryingCost);
                 }
-                else
-                {
-                    return 0;
-                }
-               
+
+
             }
             catch (Exception ex)
             {
@@ -147,12 +138,12 @@ namespace GroupProject.Items
             }
         }
 
-       /// <summary>
-       /// Deletes an Item from itemdesc if item is not in an invoice
-       /// </summary>
-       /// <param name="sItemCode"></param>
-       /// <returns>0 if item is in an invoice, else 1 if item deleted</returns>
-        public int GetDelete(string sItemCode)
+        /// <summary>
+        /// Deletes an Item from itemdesc if item is not in an invoice
+        /// </summary>
+        /// <param name="sItemCode"></param>
+        /// <returns>0 if item is in an invoice, else 1 if item deleted</returns>
+        public void GetDelete(string sItemCode)
         {
             try
             {
@@ -160,14 +151,11 @@ namespace GroupProject.Items
 
                 bIsNotInvoice = clsLogicSQL.CheckInvoices(sItemCode);
 
-                if(bIsNotInvoice)
+                if (bIsNotInvoice)
                 {
-                    return clsLogicSQL.deleteItemFromDataBase(sItemCode);
+                    clsLogicSQL.deleteItemFromDataBase(sItemCode);
                 }
-                else
-                {
-                    return 0;
-                }
+
 
             }
             catch (Exception ex)

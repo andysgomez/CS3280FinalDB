@@ -25,6 +25,11 @@ namespace GroupProject.Items
         private clsDataAccess db;
 
         /// <summary>
+        /// collection to hold the items for the item class
+        /// </summary>
+        private ObservableCollection<Item> items;
+
+        /// <summary>
         /// clsItemSQL constructor. 
         /// initializes the dbaccess class
         /// </summary>
@@ -33,6 +38,7 @@ namespace GroupProject.Items
             try
             {
                 db = new clsDataAccess();
+                items = new ObservableCollection<Item>();
             }
             catch (Exception ex)
             {
@@ -52,7 +58,9 @@ namespace GroupProject.Items
             try
             {
                 int iRet = 0;
+
                 ObservableCollection<Item> temp = new ObservableCollection<Item>();
+
                 string sSQL = "select ItemCode, ItemDesc, Cost from ItemDesc";
 
                 DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
@@ -67,18 +75,18 @@ namespace GroupProject.Items
                     double.TryParse(iCost, out cost);
                     Item item = new Item(ic, id, cost);
 
-                    temp.Add(item);
+                    items.Add(item);
                 }
 
-                return temp;
+                return items;
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
 
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        
+
         }
 
 
@@ -160,16 +168,27 @@ namespace GroupProject.Items
         /// <param name="itemDesc"></param>
         /// <param name="newCost"></param>
         /// <returns>returns the number of items updated</returns>
-        public int updateItem(string itemCode, string itemDesc, double newCost)
+        public bool updateItem(string itemCode, string itemDesc, double newCost)
         {
             //Update ItemDesc Set ItemDesc = 'abcdef', Cost = 123 where ItemCode = 'A'
             try
             {
+                int iTest = 0;
+
                 string sSQL = "Update ItemDesc Set ItemDesc = '" + itemDesc +
                     "', Cost = " + newCost + " where ItemCode = '" + itemCode + "'";
 
-               return db.ExecuteNonQuery(sSQL);
-               
+                iTest = db.ExecuteNonQuery(sSQL);
+
+                if (iTest != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -188,14 +207,25 @@ namespace GroupProject.Items
         /// <param name="itemDesc"></param>
         /// <param name="itemCost"></param>
         /// <returns></returns>
-        public int addNewItemToDataBase(string itemCode, string itemDesc, double itemCost)
+        public bool addNewItemToDataBase(string itemCode, string itemDesc, double itemCost)
         {
             //Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
             try
             {
+                int iTester = 0;
+
                 string sSQL = "INSERT into ItemDesc (ItemCode, ItemDesc, Cost) Values ('" +
                     itemCode + "', '" + itemDesc + "', " + itemCost + ")";
-                return db.ExecuteNonQuery(sSQL);
+                iTester = db.ExecuteNonQuery(sSQL);
+
+                if (iTester != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -242,12 +272,21 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public int deleteItemFromDataBase(string itemCode)
+        public bool deleteItemFromDataBase(string itemCode)
         {
             try
             {
                 string sSQL = "Delete from ItemDesc Where ItemCode = '" + itemCode + "'";
-                return db.ExecuteNonQuery(sSQL);
+                int iTester = db.ExecuteNonQuery(sSQL);
+
+                if (iTester != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -255,6 +294,6 @@ namespace GroupProject.Items
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        }           
+        }
     }
 }
