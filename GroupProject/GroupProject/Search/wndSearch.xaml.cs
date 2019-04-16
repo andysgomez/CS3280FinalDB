@@ -20,14 +20,18 @@ namespace GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+        clsSearchLogic clsSearchLogic;
+
         /// <summary>
         /// wndSearch initializer
         /// </summary>
-        public wndSearch()
+        public wndSearch(ref int foundInvoice)
         {
             try
             {
                 InitializeComponent();
+                clsSearchLogic = new clsSearchLogic(ref foundInvoice);
+
             }
             catch (Exception ex)
             {

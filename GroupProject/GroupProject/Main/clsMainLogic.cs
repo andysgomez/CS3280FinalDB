@@ -106,11 +106,38 @@ namespace GroupProject.Main
             }
         }
 
+
+        /// <summary>
+        /// load an invoice with specified number
+        /// </summary>
+        /// <param name="foundInvoice"></param>
+        internal void loadInvoice(int foundInvoice)
+        {
+            try
+            {
+                if (foundInvoice != -1)
+                {
+                    currentInvoiceNumber = foundInvoice;
+                    currentInvoiceItems.Clear();
+                    currentInvoiceItems = clsMainSQL.loadInvoiceItems(CurrentInvoiceNumber);
+                    CurrentInvoiceCost = getCalculateInvoiceCost();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+
         /// <summary>
         /// Adds another item to the currentInvoiceItems list
         /// </summary>
         /// <param name="itemToAdd"></param>
-       public void addItemToCurrInvoice(Item itemToAdd)
+        public void addItemToCurrInvoice(Item itemToAdd)
         {
             try
             {
@@ -217,14 +244,18 @@ namespace GroupProject.Main
         /// <summary>
         /// save an invoice to the database
         /// </summary>
-        internal void saveInvoice()
+        internal void saveInvoice(DateTime dt)
         {
             try
             {
                 if(getCalculateInvoiceCost() > 0 && MakingNewInvoice == true)//make sure the invoice has something in it
                 {
                     int lineItem = 1;
-                    int invoiceNumber = clsMainSQL.addInvoiceToDataBase(DateTime.Now, getCalculateInvoiceCost());
+                    if(dt == null)
+                    {
+                        dt = DateTime.Now;
+                    }
+                    int invoiceNumber = clsMainSQL.addInvoiceToDataBase(dt, getCalculateInvoiceCost());
                     CurrentInvoiceNumber = invoiceNumber;
                     foreach (Item item in currentInvoiceItems)
                     {
@@ -277,6 +308,28 @@ namespace GroupProject.Main
                     EditingInvoice = false;
                     MakingNewInvoice = false;
                 }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// reset stuff to make a new invoice
+        /// </summary>
+        internal void makeNewInvoice()
+        {
+            try
+            {
+                CurrentInvoiceNumber = -1;
+                CurrentInvoiceCost = 0;
+               
+                currentInvoiceItems = new ObservableCollection<Item>();
+                MakingNewInvoice = true;
+                EditingInvoice = false;
             }
             catch (Exception ex)
             {

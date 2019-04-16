@@ -51,6 +51,8 @@ namespace GroupProject.Main
         /// </summary>
         int currentInvoiceNumber;
 
+        int foundInvoice;
+
         public int CurrentInvoiceNumber { get => currentInvoiceNumber; set => currentInvoiceNumber = value; }
 
         /// <summary>
@@ -71,11 +73,12 @@ namespace GroupProject.Main
                 //close all hidden windows when closing
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
+                foundInvoice = -1;
                 //initialize the other windows
                 //this will likely be where I pass
                 //handles to the db and whatever
                 wndItems = new wndItems();
-                wndSearch = new wndSearch();
+                wndSearch = new wndSearch(ref foundInvoice);
 
                 //initialize business and sql handles
                 clsMainLogic = new clsMainLogic();
@@ -148,10 +151,24 @@ namespace GroupProject.Main
         {
             try
             {
+               
                 this.Hide();
                 wndSearch.ShowDialog();
                 this.Show();
-                
+                //make sure that foundInvoice exists
+                if(foundInvoice == -1)
+                {
+                    return;
+                }
+
+                clsMainLogic.loadInvoice(foundInvoice);
+                txtInvoiceNumber.Text = clsMainLogic.CurrentInvoiceNumber.ToString();
+                txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
+                clsMainLogic.MakingNewInvoice = false;
+                clsMainLogic.EditingInvoice = false;
+                dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
+                //enable disable buttons
+
             }
             catch (Exception ex)
             {
@@ -316,7 +333,8 @@ namespace GroupProject.Main
         {
             try
             {
-                clsMainLogic.saveInvoice();
+                DateTime dt = (DateTime)dtDate.SelectedDate;
+                clsMainLogic.saveInvoice(dt);
                 int invoNum = clsMainLogic.CurrentInvoiceNumber;
                 if (invoNum != -1)
                 {
@@ -390,7 +408,9 @@ namespace GroupProject.Main
                 btnAddItem.IsEnabled = true;
                 cboItems.IsEnabled = true;
                 clsMainLogic.MakingNewInvoice = true;
-                clsMainLogic.EditingInvoice = false;
+                clsMainLogic.EditingInvoice = false;                
+                clsMainLogic.makeNewInvoice();
+                dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
             }
             catch (Exception ex)
             {

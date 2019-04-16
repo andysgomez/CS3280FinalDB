@@ -13,5 +13,24 @@ namespace GroupProject.Search
 {
     class clsSearchLogic
     {
+        /// <summary>
+        /// the invoice number to be returned to the main window
+        /// store the invoice number of whatever is found here
+        /// </summary>
+        private int foundInvoiceNumber;
+
+
+        public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
+
+        /// <summary>
+        /// Constructor for our search logic class
+        /// </summary>
+        public clsSearchLogic(ref int foundInvoice)
+        {
+            FoundInvoiceNumber = 5001;//this is to test while this window is under construction
+            foundInvoice = FoundInvoiceNumber;
+        }
+
+       
     }
 }
