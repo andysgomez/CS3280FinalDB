@@ -90,7 +90,8 @@ namespace GroupProject.Main
                 //populate combobox
                 loadItemsCBO();
 
-
+                //set the date to today
+                dtDate.SelectedDate = DateTime.Today;
                 dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
 
                 CurrentInvoiceNumber = -1;
@@ -168,6 +169,10 @@ namespace GroupProject.Main
                 clsMainLogic.EditingInvoice = false;
                 dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
                 //enable disable buttons
+                btnEdit.IsEnabled = true;
+                btnSaveInvoice.IsEnabled = false;
+                btnDelete.IsEnabled = true;
+                dgCurrentInvoice.IsEnabled = false;
 
             }
             catch (Exception ex)
@@ -187,9 +192,17 @@ namespace GroupProject.Main
         {
             try
             {
+                //maybe save some state info?
+                //maybe it saves already?
                 this.Hide();
                 wndItems.ShowDialog();
                 this.Show();
+
+                //just update the combobox
+                clsMainLogic.reloadCatalog();
+                cboItems.ItemsSource = clsMainLogic.getItemsSold();
+
+                //reload any saved state info
             }
             catch (Exception ex)
             {
@@ -334,6 +347,7 @@ namespace GroupProject.Main
             try
             {
                 DateTime dt = (DateTime)dtDate.SelectedDate;
+               
                 clsMainLogic.saveInvoice(dt);
                 int invoNum = clsMainLogic.CurrentInvoiceNumber;
                 if (invoNum != -1)
@@ -343,10 +357,11 @@ namespace GroupProject.Main
                     btnEdit.IsEnabled = true;
                     clsMainLogic.EditingInvoice = false;
                     clsMainLogic.MakingNewInvoice = false;
+                    dgCurrentInvoice.IsEnabled = false;
                 }
                 else
                 {
-                    txtInvoiceNumber.Text = "TBD";
+                    txtInvoiceNumber.Text = "Save Failed... you should never see this";
                 }
                 btnSaveInvoice.IsEnabled = false;
             }
@@ -382,6 +397,7 @@ namespace GroupProject.Main
                     cboItems.IsEnabled = false;
                     btnEdit.IsEnabled = false;
                     btnNew.IsEnabled = true;
+                    btnDelete.IsEnabled = false;
                     btnSaveInvoice.IsEnabled = false;
                 }
 
@@ -407,6 +423,7 @@ namespace GroupProject.Main
             {
                 btnAddItem.IsEnabled = true;
                 cboItems.IsEnabled = true;
+                btnEdit.IsEnabled = false;
                 clsMainLogic.MakingNewInvoice = true;
                 clsMainLogic.EditingInvoice = false;                
                 clsMainLogic.makeNewInvoice();
@@ -453,6 +470,9 @@ namespace GroupProject.Main
             {
                 clsMainLogic.EditingInvoice = true;
                 clsMainLogic.MakingNewInvoice = false;
+                dgCurrentInvoice.IsEnabled = true;
+                cboItems.IsEnabled = true;
+                btnAddItem.IsEnabled = true;
             }
             catch (Exception ex)
             {

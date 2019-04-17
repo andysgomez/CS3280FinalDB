@@ -67,7 +67,7 @@
             </StackPanel>
             <!--Buttons to give this window some functions-->
             <StackPanel Orientation="Vertical" Margin="15" Grid.Column="1" VerticalAlignment="Center">
-                <DatePicker x:Name="dtDate" Margin="5" />
+                <DatePicker x:Name="dtDate" Margin="5" SelectedDate="" />
                 <Button x:Name="btnNew" IsEnabled="True" Content="New Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2" Click="BtnNew_Click"/>
                 <Button x:Name="btnEdit" IsEnabled="False" Content="Edit Invoice" Margin="0 5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2" Click="BtnEdit_Click"/>
                 <Button x:Name="btnDelete" IsEnabled="False" Content="Delete Invoice" Margin="0,5" FontFamily="Rockwell" FontSize="14" Background="White" BorderBrush="Black" BorderThickness="2" Click="BtnDelete_Click" />
