@@ -239,8 +239,8 @@ namespace GroupProject.Items
         /// uses SQL to determine if itemcode is already used in item desc table
         /// </summary>
         /// <param name="sItemCode"></param>
-        /// <returns>bool true if item code doesn't exist
-        /// returns false if it does</returns>
+        /// <returns>bool false if item code doesn't exist
+        /// returns true if it does</returns>
         public bool checkItemCode(string sItemCode)
         {
             try
@@ -252,11 +252,11 @@ namespace GroupProject.Items
 
                 if (sHolderString == "")
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)

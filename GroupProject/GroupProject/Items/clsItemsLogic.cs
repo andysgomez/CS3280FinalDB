@@ -75,17 +75,11 @@ namespace GroupProject.Items
         /// <param name="sItemCode"></param>
         /// <param name="dCost"></param>
         /// <param name="sDescription"></param>
-        public void AddItem(string sItemCode, string sCost, string sDescription)
+        public bool AddItem(string sItemCode, string sCost, string sDescription)
         {
             try
             {
-                bool bTestItemCode;
-
-                //checks to make sure the item code is not already being used
-                bTestItemCode = clsLogicSQL.checkItemCode(sItemCode);
-
-                if (bTestItemCode)
-                {
+                
                     bool getCost;
 
                     double TryingCost;
@@ -97,14 +91,25 @@ namespace GroupProject.Items
                         clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, TryingCost);
                     }
 
-                }
-
+                    return true;
+                    
             }
             catch (Exception ex)
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// runs checkItemCode sql to check if item code already exists
+        /// </summary>
+        /// <param name="sItemCode"></param>
+        /// <returns>false if code doesn't exist, true if it does</returns>
+        public bool CheckItemCode(string sItemCode)
+        {
+            //checks to make sure the item code is not already being used
+            return clsLogicSQL.checkItemCode(sItemCode);
         }
 
         /// <summary>

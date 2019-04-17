@@ -11,20 +11,21 @@
             <ColumnDefinition Width="95*"/>
             <ColumnDefinition Width="103*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="239" Margin="63,61,0,0" VerticalAlignment="Top" Width="657" CanUserAddRows="False" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dgItemDesc" HorizontalAlignment="Left" Height="239" Margin="63,61,0,0" VerticalAlignment="Top" Width="657" CanUserAddRows="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Code" Width="100"/>
                 <DataGridTextColumn Header="Cost" Width="100"/>
-                <DataGridTextColumn Header="Description" Width="250"/>
+                <DataGridTextColumn Header="Description" Width="250*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtBoxItemCode" HorizontalAlignment="Left" Height="23" Margin="63,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="100" IsEnabled="False" RenderTransformOrigin="0.59,-1.157"/>
-        <TextBox x:Name="txtBoxCostChange" HorizontalAlignment="Left" Height="23" Margin="158,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="txtBoxDescriptionChange" HorizontalAlignment="Left" Height="23" Margin="258,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="462" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="63,368,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
+        <TextBox x:Name="txtBoxItemCode" HorizontalAlignment="Left" Height="23" Margin="63,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsEnabled="False" RenderTransformOrigin="0.59,-1.157" AcceptsTab="True" MaxLength="3" MaxLines="2147483645"/>
+        <TextBox x:Name="txtBoxCostChange" HorizontalAlignment="Left" Height="23" Margin="163,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="txtBoxDescriptionChange" HorizontalAlignment="Left" Height="23" Margin="263,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="457" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="63,368,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Click="BtnAddItem_Click"/>
         <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="264,369,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
         <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="94,369,0,0" VerticalAlignment="Top" Width="90" Grid.Column="1" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="255.796,369,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
+        <Label x:Name="lblError" Content="" HorizontalAlignment="Left" Margin="363,337,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" IsEnabled="False" Foreground="#FFF10B0B"/>
 
     </Grid>
 </Window>

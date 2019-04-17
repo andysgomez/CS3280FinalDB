@@ -24,7 +24,10 @@ namespace GroupProject.Items
     {
         clsItemsLogic clsItemLogic;
 
-        
+        /// <summary>
+        /// public flag to alert other windows itemdesc db has changed
+        /// </summary>
+        public bool bItemChange = false;
 
 
 
@@ -34,6 +37,8 @@ namespace GroupProject.Items
             {
                 InitializeComponent();
 
+                clsItemLogic = new clsItemsLogic();
+                dgItemDesc.ItemsSource = clsItemLogic.RetrieveItems();
             }
             catch (Exception ex)
             {
@@ -59,6 +64,44 @@ namespace GroupProject.Items
             {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// button click to add item to the itemdesc database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string sBoxItemCode = txtBoxItemCode.ToString();
+                string sBoxCostChange = txtBoxCostChange.ToString();
+                string sBoxDescriptionChange = txtBoxDescriptionChange.ToString();
+
+                if (sBoxItemCode == "" || sBoxCostChange == "" || sBoxDescriptionChange == "")
+                {
+                    lblError.Content = "Item Code, Description, and Cost can not be blank";
+                }
+                else
+                {
+                    bool bItemCodeTest = clsItemLogic.CheckItemCode(sBoxItemCode);
+
+                    if (bItemCodeTest)
+                    {
+                        lblError.Content = "That Item Code already exists";
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -97,5 +140,7 @@ namespace GroupProject.Items
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        
     }
 }
