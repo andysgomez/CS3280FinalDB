@@ -37,7 +37,7 @@ namespace GroupProject.Items
         /// <summary>
         /// Public constructor of the item logic
         /// </summary>
-        public clsItemsLogicSQL()
+        public clsItemsLogic()
         {
             try
             {
