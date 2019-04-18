@@ -34,17 +34,26 @@ namespace GroupProject.Search
         /// </summary>
         private int foundInvoiceNumber;
 
+        /// <summary>
+        /// handle to the sql worker
+        /// </summary>
         private clsSearchSQL clsSearchSQL;
 
+        /// <summary>
+        /// this is just all the invoices in the database
+        /// </summary>
         private ObservableCollection<Invoice> allInvoices;
 
+        /// <summary>
+        /// this is the invoices to show after the user has trimmed 
+        /// the search
+        /// </summary>
         private ObservableCollection<Invoice> invoicesToDisplay;
 
+        /// <summary>
+        /// this is the invoice to return to main for editing
+        /// </summary>
         private Invoice invoiceToReturn;
-
-        private int selectedInvoice;
-
-        
 
 
         public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
@@ -58,10 +67,8 @@ namespace GroupProject.Search
         {
 
             try
-            {
-                
-                resetWindow();
-                //foundInvoice = FoundInvoiceNumber;
+            {                
+                resetWindow();                
             }
             catch (Exception ex)
             {
@@ -91,7 +98,7 @@ namespace GroupProject.Search
                 
 
                 FoundInvoiceNumber = -1;//this is to test while this window is under construction
-                selectedInvoice = FoundInvoiceNumber;
+                //selectedInvoice = FoundInvoiceNumber;
             }
             catch (Exception ex)
             {
