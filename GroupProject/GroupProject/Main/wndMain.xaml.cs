@@ -365,6 +365,7 @@ namespace GroupProject.Main
                     txtInvoiceNumber.Text = "Save Failed... you should never see this";
                 }
                 btnSaveInvoice.IsEnabled = false;
+                mnuUpdateItems.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -400,6 +401,7 @@ namespace GroupProject.Main
                     btnNew.IsEnabled = true;
                     btnDelete.IsEnabled = false;
                     btnSaveInvoice.IsEnabled = false;
+                    mnuUpdateItems.IsEnabled = true;
                 }
 
             }
@@ -423,6 +425,7 @@ namespace GroupProject.Main
             try
             {
                 btnAddItem.IsEnabled = true;
+                mnuUpdateItems.IsEnabled = false;
                 cboItems.IsEnabled = true;
                 btnEdit.IsEnabled = false;
                 clsMainLogic.MakingNewInvoice = true;
@@ -474,6 +477,8 @@ namespace GroupProject.Main
                 dgCurrentInvoice.IsEnabled = true;
                 cboItems.IsEnabled = true;
                 btnAddItem.IsEnabled = true;
+                mnuUpdateItems.IsEnabled = false;
+                
             }
             catch (Exception ex)
             {

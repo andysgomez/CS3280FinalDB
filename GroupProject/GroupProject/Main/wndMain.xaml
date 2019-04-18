@@ -23,8 +23,8 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Menu">
-                    <MenuItem Header="Update Table"  Click="mnuUpdate_Click"/>
-                    <MenuItem Header="Search Invoice" Click="mnuSearch_Click" />
+                    <MenuItem x:Name="mnuUpdateItems" Header="Update Item Table"  Click="mnuUpdate_Click"/>
+                    <MenuItem x:Name="mnuSearchInvoices" Header="Search Invoice" Click="mnuSearch_Click" />
                     <Separator />
                     <MenuItem Header="Exit" Click="mnuExit_Click"/>
 
