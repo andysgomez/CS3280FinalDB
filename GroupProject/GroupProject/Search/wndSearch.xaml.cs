@@ -32,6 +32,9 @@ namespace GroupProject.Search
                 InitializeComponent();
                 clsSearchLogic = new clsSearchLogic(ref foundInvoice);
 
+                cboInvoiceNumbers.ItemsSource = clsSearchLogic.loadInvoiceNumberCBO();
+                cboInvoiceNumbers.SelectedIndex = 1;
+
             }
             catch (Exception ex)
             {

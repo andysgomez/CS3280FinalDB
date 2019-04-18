@@ -47,11 +47,11 @@ namespace GroupProject.Search
         /// if it is a DateTime object use .ToShortDateString()
         /// </summary>
         /// <returns></returns>
-        public BindingList<Invoice> loadInvoices(double totalCost = -999.9, string sDate = "1/1/1")//this makes it optional
+        public ObservableCollection<Invoice> loadInvoices(double totalCost = -999.9, string sDate = "1/1/1")//this makes it optional
         {
             try
             {
-                BindingList<Invoice> invoices = new BindingList<Invoice>();
+                ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
 
                 int iRet = 0;
 
