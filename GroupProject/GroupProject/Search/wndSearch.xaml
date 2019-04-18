@@ -14,10 +14,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Center" Grid.Row="0">
                 <ComboBox x:Name="cboInvoiceNumbers" />
-                <ComboBox />
-                <ComboBox />
+                <ComboBox x:Name="cboInvoiceDates" />
+                <ComboBox x:Name="cboInvoiceCosts"/>
             </StackPanel>
-            <DataGrid Grid.Row="1">
+            <DataGrid x:Name="dgInvoices" Grid.Row="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
             
             </DataGrid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">

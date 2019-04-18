@@ -33,7 +33,13 @@ namespace GroupProject.Search
                 clsSearchLogic = new clsSearchLogic(ref foundInvoice);
 
                 cboInvoiceNumbers.ItemsSource = clsSearchLogic.loadInvoiceNumberCBO();
-                cboInvoiceNumbers.SelectedIndex = 1;
+                //cboInvoiceNumbers.SelectedIndex = 1;
+
+                cboInvoiceDates.ItemsSource = clsSearchLogic.loadDTCBO();
+
+                cboInvoiceCosts.ItemsSource = clsSearchLogic.loadCostCBO();
+
+                dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
 
             }
             catch (Exception ex)

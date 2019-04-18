@@ -36,12 +36,15 @@ namespace GroupProject.Search
 
         private clsSearchSQL clsSearchSQL;
 
-        private ObservableCollection<Invoice> invoices;
+        private ObservableCollection<Invoice> allInvoices;
+
+        private ObservableCollection<Invoice> invoicesToDisplay;
 
         
 
 
         public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
+        public ObservableCollection<Invoice> InvoicesToDisplay { get => invoicesToDisplay; set => invoicesToDisplay = value; }
 
         /// <summary>
         /// Constructor for our search logic class
@@ -63,7 +66,10 @@ namespace GroupProject.Search
         }
 
        
-
+        /// <summary>
+        /// call this to reset all the data when reset is pressed
+        /// </summary>
+        /// <param name="foundInvoice"></param>
         private void resetWindow(ref int foundInvoice)
         {
             try
@@ -71,9 +77,11 @@ namespace GroupProject.Search
 
                 //initialize all variables
                 clsSearchSQL = new clsSearchSQL();
-                invoices = new ObservableCollection<Invoice>();
-                invoices = clsSearchSQL.loadInvoices();
-               
+                allInvoices = new ObservableCollection<Invoice>();
+                allInvoices = clsSearchSQL.loadInvoices();
+                InvoicesToDisplay = new ObservableCollection<Invoice>();//maybe not needed
+                InvoicesToDisplay = allInvoices;
+
 
                 FoundInvoiceNumber = 5001;//this is to test while this window is under construction
                 foundInvoice = FoundInvoiceNumber;
@@ -86,15 +94,78 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Call this method to get the items for the invoice number cbo
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<int> loadInvoiceNumberCBO()
         {
             try
             {
                 ObservableCollection<int> temp = new ObservableCollection<int>();
 
-                foreach (Invoice i in invoices)
+                foreach (Invoice i in allInvoices)
                 {
                     temp.Add(i.InvoiceNumber);
+                }
+
+                return temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// call this method to load the datetime combo box
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<DateTime> loadDTCBO()
+        {
+            try
+            {
+                ObservableCollection<DateTime> temp = new ObservableCollection<DateTime>();
+
+                foreach (Invoice invoice in allInvoices)
+                {
+                    if(!temp.Contains(invoice.InvoiceDate))
+                    {
+                        temp.Add(invoice.InvoiceDate);
+                    }                    
+                }
+                temp = new ObservableCollection<DateTime>(temp.OrderBy(i => i));//got this from stackoverflow
+
+                return temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// call this to load the cost combobox
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<double> loadCostCBO()
+        {
+            try
+            {
+                ObservableCollection<double> temp = new ObservableCollection<double>();
+
+                foreach (Invoice invoice in allInvoices)
+                {
+                    if(!temp.Contains(invoice.TotalCost))
+                    {
+                        temp.Add(invoice.TotalCost);                        
+                    }
+                    //Animals = new ObservableCollection<string>(Animals.OrderBy(i => i));
+                    temp = new ObservableCollection<double>(temp.OrderBy(i => i));
                 }
 
                 return temp;
