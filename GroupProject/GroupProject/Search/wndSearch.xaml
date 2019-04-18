@@ -13,17 +13,19 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Center" Grid.Row="0">
-                <ComboBox x:Name="cboInvoiceNumbers" />
-                <ComboBox x:Name="cboInvoiceDates" />
-                <ComboBox x:Name="cboInvoiceCosts"/>
-            </StackPanel>
-            <DataGrid x:Name="dgInvoices" Grid.Row="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
             
-            </DataGrid>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
-                <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
-                <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
-            </StackPanel>
-       
+            <ComboBox x:Name="cboInvoiceNumbers" Width="75" Margin="5 0" SelectionChanged="CboInvoiceNumbers_SelectionChanged" />
+            <ComboBox x:Name="cboInvoiceDates" Width="120" Margin="5 0" SelectionChanged="CboInvoiceDates_SelectionChanged"/>
+            <ComboBox x:Name="cboInvoiceCosts" Width="75" Margin="5 0" SelectionChanged="CboInvoiceCosts_SelectionChanged"/>
+            <Button x:Name="btnReset" Content="Reset Search" HorizontalAlignment="Right" Margin="50 0" Click="BtnReset_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="dgInvoices" Grid.Row="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" SelectionChanged="DgInvoices_SelectionChanged">
+
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
+            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
+            <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
+        </StackPanel>
+
     </Grid>
 </Window>

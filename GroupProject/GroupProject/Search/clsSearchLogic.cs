@@ -40,7 +40,8 @@ namespace GroupProject.Search
 
         private ObservableCollection<Invoice> invoicesToDisplay;
 
-        
+        private int selectedInvoice;
+
 
 
         public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
@@ -54,7 +55,9 @@ namespace GroupProject.Search
 
             try
             {
-                resetWindow(ref foundInvoice);
+                //selectedInvoice = foundInvoice;
+                resetWindow();
+                foundInvoice = selectedInvoice;
             }
             catch (Exception ex)
             {
@@ -70,11 +73,10 @@ namespace GroupProject.Search
         /// call this to reset all the data when reset is pressed
         /// </summary>
         /// <param name="foundInvoice"></param>
-        private void resetWindow(ref int foundInvoice)
+        public void resetWindow()
         {
             try
             {
-
                 //initialize all variables
                 clsSearchSQL = new clsSearchSQL();
                 allInvoices = new ObservableCollection<Invoice>();
@@ -84,7 +86,7 @@ namespace GroupProject.Search
 
 
                 FoundInvoiceNumber = 5001;//this is to test while this window is under construction
-                foundInvoice = FoundInvoiceNumber;
+                selectedInvoice = FoundInvoiceNumber;
             }
             catch (Exception ex)
             {
@@ -169,6 +171,87 @@ namespace GroupProject.Search
                 }
 
                 return temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// remove all invoices that arent a specific date
+        /// </summary>
+        /// <param name="dt"></param>
+        public void trimListByDate(DateTime dt)
+        {
+            try
+            {
+                ObservableCollection<Invoice> temp = new ObservableCollection<Invoice>();
+                foreach (Invoice invoice in InvoicesToDisplay)
+                {
+                    if ((invoice.InvoiceDate == dt))
+                    {
+                        temp.Add(invoice);
+                    }
+                }
+                InvoicesToDisplay = temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// remove all invoices that arent a specific cost
+        /// </summary>
+        /// <param name="cost"></param>
+        public void trimByCost(double cost)
+        {
+            try
+            {
+                ObservableCollection<Invoice> temp = new ObservableCollection<Invoice>();
+                foreach (Invoice invoice in InvoicesToDisplay)
+                {
+                    if ((invoice.TotalCost == cost))
+                    {
+                        temp.Add(invoice);
+                    }
+                }
+                InvoicesToDisplay = temp;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// remove all invoices that arent a specific invoice
+        /// </summary>
+        /// <param name="number"></param>
+        public void trimByInvoiceNumber(int number)
+        {
+            try
+            {
+                ObservableCollection<Invoice> temp = new ObservableCollection<Invoice>();
+                foreach (Invoice invoice in InvoicesToDisplay)
+                {
+                    if ((invoice.InvoiceNumber == number))
+                    {
+                        temp.Add(invoice);
+                    }
+                }
+                InvoicesToDisplay = temp;
+
+                //update all cbolists
             }
             catch (Exception ex)
             {

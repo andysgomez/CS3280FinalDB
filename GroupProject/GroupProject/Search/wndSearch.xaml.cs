@@ -140,5 +140,114 @@ namespace GroupProject.Search
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// logic for when the invoice numbers combo box is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CboInvoiceNumbers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (cboInvoiceNumbers.SelectedIndex != -1)
+                {
+                    int temp = (int)cboInvoiceNumbers.SelectedItem;
+                    clsSearchLogic.trimByInvoiceNumber(temp);
+                    dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic for when the costs combobox is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CboInvoiceCosts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if(cboInvoiceCosts.SelectedIndex != -1)
+                {
+                    double temp = (double)cboInvoiceCosts.SelectedItem;
+                    clsSearchLogic.trimByCost(temp);
+                    dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic for when the dates combobox is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CboInvoiceDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (cboInvoiceDates.SelectedIndex != -1)
+                { 
+                    DateTime temp = (DateTime)cboInvoiceDates.SelectedItem;
+                    clsSearchLogic.trimListByDate(temp);
+                    dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic to reset the form to starting position
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                cboInvoiceNumbers.SelectedIndex = -1;
+                cboInvoiceDates.SelectedIndex = -1;
+                cboInvoiceCosts.SelectedIndex = -1;
+                clsSearchLogic.resetWindow();
+                dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// logic for when the selection is changed on the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
     }
 }
