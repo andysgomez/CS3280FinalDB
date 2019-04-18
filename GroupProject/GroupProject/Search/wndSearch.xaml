@@ -23,7 +23,7 @@
 
         </DataGrid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
+            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14" RenderTransformOrigin="0.504,0.506"/>
             <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
         </StackPanel>
 

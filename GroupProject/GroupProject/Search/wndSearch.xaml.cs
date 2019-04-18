@@ -22,16 +22,18 @@ namespace GroupProject.Search
     {
         clsSearchLogic clsSearchLogic;
 
+        //private int invoiceToReturn;
+
         /// <summary>
         /// wndSearch initializer
         /// </summary>
-        public wndSearch(ref int foundInvoice)
+        public wndSearch()
         {
             try
             {
                 InitializeComponent();
-                clsSearchLogic = new clsSearchLogic(ref foundInvoice);
-
+                clsSearchLogic = new clsSearchLogic();
+                //invoiceToReturn = foundInvoice;
                 cboInvoiceNumbers.ItemsSource = clsSearchLogic.loadInvoiceNumberCBO();
                 //cboInvoiceNumbers.SelectedIndex = 1;
 
@@ -114,7 +116,16 @@ namespace GroupProject.Search
         {
             try
             {
-
+                if (dgInvoices.SelectedIndex != -1)
+                {
+                    Invoice temp = (Invoice)dgInvoices.SelectedItem;
+                    clsSearchLogic.InvoiceToReturn = new Invoice(temp.InvoiceNumber, temp.InvoiceDate, temp.TotalCost, temp.Items);
+                }
+                else
+                {
+                    clsSearchLogic.InvoiceToReturn = null;
+                }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -132,6 +143,7 @@ namespace GroupProject.Search
         {
             try
             {
+                clsSearchLogic.InvoiceToReturn = null;
                 this.Close();
             }
             catch (Exception ex)
@@ -241,13 +253,32 @@ namespace GroupProject.Search
         {
             try
             {
-
+               
             }
             catch (Exception ex)
             {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
+
+        /// <summary>
+        /// returns the found invoice
+        /// </summary>
+        /// <returns></returns>
+        public Invoice returnFoundInvoice()
+        {
+            try
+            {
+                Invoice temp = clsSearchLogic.returnInvoice();
+                return temp;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            return null;
         }
     }
 }

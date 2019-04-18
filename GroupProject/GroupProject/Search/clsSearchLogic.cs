@@ -40,24 +40,28 @@ namespace GroupProject.Search
 
         private ObservableCollection<Invoice> invoicesToDisplay;
 
+        private Invoice invoiceToReturn;
+
         private int selectedInvoice;
 
+        
 
 
         public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
         public ObservableCollection<Invoice> InvoicesToDisplay { get => invoicesToDisplay; set => invoicesToDisplay = value; }
+        public Invoice InvoiceToReturn { get => invoiceToReturn; set => invoiceToReturn = value; }
 
         /// <summary>
         /// Constructor for our search logic class
         /// </summary>
-        public clsSearchLogic(ref int foundInvoice)
+        public clsSearchLogic()
         {
 
             try
             {
-                //selectedInvoice = foundInvoice;
+                
                 resetWindow();
-                foundInvoice = selectedInvoice;
+                //foundInvoice = FoundInvoiceNumber;
             }
             catch (Exception ex)
             {
@@ -78,14 +82,15 @@ namespace GroupProject.Search
             try
             {
                 //initialize all variables
+                
                 clsSearchSQL = new clsSearchSQL();
                 allInvoices = new ObservableCollection<Invoice>();
                 allInvoices = clsSearchSQL.loadInvoices();
                 InvoicesToDisplay = new ObservableCollection<Invoice>();//maybe not needed
                 InvoicesToDisplay = allInvoices;
+                
 
-
-                FoundInvoiceNumber = 5001;//this is to test while this window is under construction
+                FoundInvoiceNumber = -1;//this is to test while this window is under construction
                 selectedInvoice = FoundInvoiceNumber;
             }
             catch (Exception ex)
@@ -232,6 +237,24 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// used to return selected invoice
+        /// </summary>
+        /// <returns></returns>
+        internal Invoice returnInvoice()
+        {
+            try
+            {
+                return invoiceToReturn;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// remove all invoices that arent a specific invoice
@@ -251,7 +274,7 @@ namespace GroupProject.Search
                 }
                 InvoicesToDisplay = temp;
 
-                //update all cbolists
+                //update all cbolists optional
             }
             catch (Exception ex)
             {
@@ -260,5 +283,6 @@ namespace GroupProject.Search
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+        
     }
 }

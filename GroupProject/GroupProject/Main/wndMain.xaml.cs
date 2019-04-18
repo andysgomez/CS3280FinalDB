@@ -51,7 +51,7 @@ namespace GroupProject.Main
         /// </summary>
         int currentInvoiceNumber;
 
-        int foundInvoice;
+        Invoice foundInvoice;
 
         public int CurrentInvoiceNumber { get => currentInvoiceNumber; set => currentInvoiceNumber = value; }
 
@@ -73,12 +73,12 @@ namespace GroupProject.Main
                 //close all hidden windows when closing
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-                foundInvoice = -1;
+                //foundInvoice = null;
                 //initialize the other windows
                 //this will likely be where I pass
                 //handles to the db and whatever
                 wndItems = new wndItems();
-                wndSearch = new wndSearch(ref foundInvoice);
+                wndSearch = new wndSearch();
 
                 //initialize business and sql handles
                 clsMainLogic = new clsMainLogic();
@@ -157,12 +157,13 @@ namespace GroupProject.Main
                 wndSearch.ShowDialog();
                 this.Show();
                 //make sure that foundInvoice exists
-                if(foundInvoice == -1)
+                foundInvoice = wndSearch.returnFoundInvoice();
+                if(foundInvoice.InvoiceNumber == -1 || foundInvoice == null)
                 {
                     return;
                 }
-
-                clsMainLogic.loadInvoice(foundInvoice);
+                
+                clsMainLogic.loadInvoice(foundInvoice.InvoiceNumber);
                 txtInvoiceNumber.Text = clsMainLogic.CurrentInvoiceNumber.ToString();
                 txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
                 clsMainLogic.MakingNewInvoice = false;
