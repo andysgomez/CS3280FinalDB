@@ -386,7 +386,7 @@ namespace GroupProject.Items
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Filter_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        {//found on stackoverflow
             try
             {
                 var textboxSender = (TextBox)sender;

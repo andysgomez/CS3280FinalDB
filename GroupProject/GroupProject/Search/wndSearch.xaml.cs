@@ -223,6 +223,7 @@ namespace GroupProject.Search
                 cboInvoiceCosts.SelectedIndex = -1;
                 clsSearchLogic.resetWindow();
                 dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                fillCBOS(clsSearchLogic.AllInvoices);
             }
             catch (Exception ex)
             {
