@@ -19,14 +19,14 @@
             <ComboBox x:Name="cboInvoiceDates" Width="120" Margin="5 0" SelectionChanged="CboInvoiceDates_SelectionChanged"/>
             <TextBlock Text="Cost:" />
             <ComboBox x:Name="cboInvoiceCosts" Width="75" Margin="5 0" SelectionChanged="CboInvoiceCosts_SelectionChanged"/>
-            <Button x:Name="btnReset" Content="Reset Search" HorizontalAlignment="Right" Margin="50 0" Click="BtnReset_Click"/>
+            <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Right" Margin="50 0" Click="BtnReset_Click" Background="White" FontFamily="Rockwell" FontSize="14" Width="64"/>
         </StackPanel>
         <DataGrid x:Name="dgInvoices" Grid.Row="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" SelectionChanged="DgInvoices_SelectionChanged">
 
         </DataGrid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14" RenderTransformOrigin="0.504,0.506"/>
-            <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14"/>
+            <Button x:Name="btnSelect" Content="Select" Click="BtnSelect_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14" RenderTransformOrigin="0.504,0.506" FontFamily="Rockwell"/>
+            <Button x:Name="btnCancel" Content="Cancel" Click="BtnCancel_Click" Padding="5" Margin="15" Background="White" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Rockwell"/>
         </StackPanel>
 
     </Grid>
