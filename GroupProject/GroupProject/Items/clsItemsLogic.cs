@@ -131,6 +131,7 @@ namespace GroupProject.Items
                 if (TryingCost >= 0)
                 {
                     clsLogicSQL.updateItem(sItemCode, sDescription, TryingCost);
+                    items.Clear();
                     items = clsLogicSQL.getItems();
                     return true;
                 }
