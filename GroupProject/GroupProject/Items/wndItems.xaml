@@ -16,7 +16,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="txtBoxAddItemCode" HorizontalAlignment="Left" Height="25" Margin="35,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"  RenderTransformOrigin="0.59,-1.157" AcceptsTab="True" MaxLength="3" MaxLines="2147483645"/>
-        <TextBox x:Name="txtBoxAddCostChange" HorizontalAlignment="Left" Height="25" Margin="135,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" />
+        <TextBox x:Name="txtBoxAddCostChange" HorizontalAlignment="Left" Height="25" Margin="135,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" PreviewTextInput="TxtBoxAddCostChange_PreviewTextInput" />
         <TextBox x:Name="txtBoxAddDescriptionChange" HorizontalAlignment="Left" Height="25" Margin="235,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269"/>
         <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="523,369,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Click="BtnAddItem_Click" Height="25"/>
         <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="545,255,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Height="25" Click="BtnEditItem_Click"/>
@@ -26,7 +26,7 @@
         <Label x:Name="lblItemCode" Content="Item Code: " HorizontalAlignment="Left" Margin="560,46,0,0" VerticalAlignment="Top" Width="176" Background="White"/>
         <Label x:Name="lblCost" Content="Cost:" HorizontalAlignment="Left" Margin="532,98,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblDesc" Content="Description:" HorizontalAlignment="Left" Margin="518,140,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxUpdateCost" HorizontalAlignment="Left" Height="23" Margin="610,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtBoxUpdateCost" HorizontalAlignment="Left" Height="23" Margin="610,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  PreviewTextInput="TxtBoxAddCostChange_PreviewTextInput"/>
         <TextBox x:Name="txtBoxUpdateDesc" HorizontalAlignment="Left" Height="45" Margin="610,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblEditDeleteError" Content="" HorizontalAlignment="Left" Margin="523,202,0,0" VerticalAlignment="Top" Width="238" Foreground="#FFFA0000"/>
         <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="610,338,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"  Height="25" Click="BtnDone_Click"></Button>

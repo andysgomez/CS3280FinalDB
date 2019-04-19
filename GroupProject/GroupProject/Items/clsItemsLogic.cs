@@ -85,6 +85,7 @@ namespace GroupProject.Items
                 if (dTryingCost > 0)
                 {
                     clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, dTryingCost);
+                    items.Clear();
                     items = clsLogicSQL.getItems();
 
                     return true;
@@ -167,6 +168,7 @@ namespace GroupProject.Items
                 {
                     clsLogicSQL.deleteItemFromDataBase(sItemCode);
 
+                    items.Clear();
                     items = clsLogicSQL.getItems();
 
                     return null;
