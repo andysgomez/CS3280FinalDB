@@ -1,6 +1,7 @@
 ﻿using GroupProject.Main;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace GroupProject.Items
         private clsDataAccess db;
 
         /// <summary>
+        /// collection to hold the items for the item class
+        /// </summary>
+        private ObservableCollection<Item> items;
+
+        /// <summary>
         /// clsItemSQL constructor. 
         /// initializes the dbaccess class
         /// </summary>
@@ -32,6 +38,7 @@ namespace GroupProject.Items
             try
             {
                 db = new clsDataAccess();
+                items = new ObservableCollection<Item>();
             }
             catch (Exception ex)
             {
@@ -44,15 +51,16 @@ namespace GroupProject.Items
         /// <summary>
         /// Get a list of all the items in the database
         /// </summary>
-        /// <param name="itemDesc"></param>
         /// <returns></returns>
-        public BindingList<Item> getItems(string itemDesc)
+        public ObservableCollection<Item> getItems()
         {
             //select ItemCode, ItemDesc, Cost from ItemDesc
             try
             {
                 int iRet = 0;
-                BindingList<Item> temp = new BindingList<Item>();
+
+                ObservableCollection<Item> temp = new ObservableCollection<Item>();
+
                 string sSQL = "select ItemCode, ItemDesc, Cost from ItemDesc";
 
                 DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
@@ -67,18 +75,18 @@ namespace GroupProject.Items
                     double.TryParse(iCost, out cost);
                     Item item = new Item(ic, id, cost);
 
-                    temp.Add(item);
+                    items.Add(item);
                 }
 
-                return temp;
+                return items;
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
 
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        
+
         }
 
 
@@ -87,34 +95,69 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public BindingList<int> getInvoicesThatIncludeItem(string itemCode)
+        public string getInvoicesThatIncludeItem(string itemCode)
         {
             //select distinct(InvoiceNum) from LineItems where ItemCode = 'A'
             //I have never used "distict" in sql before... Im not sure this one will work
             try
             {
-                BindingList<int> temp = new BindingList<int>();
+                ObservableCollection<string> temp = new ObservableCollection<string>();
                 int iRet = 0;
 
                 string sSQL = "select distinct(InvoiceNum) from LineItems where ItemCode = '" + itemCode + "'";
 
                 DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
 
+                string sInvoiceNum = "";
+
                 for (int i = 0; i < iRet; i++)
                 {
-                    string sInvoiceNum = ds.Tables[0].Rows[i][0].ToString();
-
-                    int invoiceNum;
-                    Int32.TryParse(sInvoiceNum, out invoiceNum);
-
-                    temp.Add(invoiceNum);
+                    sInvoiceNum += ds.Tables[0].Rows[i][0].ToString();
+                    
+                    if (i != (iRet - 1))
+                    {
+                        sInvoiceNum += "\n";
+                    }
+                   
                 }
 
-                return temp;
+                return sInvoiceNum;
             }
             catch (Exception ex)
             {
 
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Executes SQL that returns if item is in an invoice
+        /// </summary>
+        /// <param name="sItemCode"></param>
+        /// <returns>true if there are no invoices with that item, false if there is</returns>
+        public bool CheckInvoices(string sItemCode)
+        {
+            try
+            {
+                int iRet = 0;
+
+                string sSQL = "SELECT DISTINCT(InvoiceNum) FROM LineItems WHERE ItemCode = '" + sItemCode + "';";
+                DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
+
+                //checks the returned number of selected rows
+                if (iRet == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
@@ -128,16 +171,64 @@ namespace GroupProject.Items
         /// <param name="itemDesc"></param>
         /// <param name="newCost"></param>
         /// <returns>returns the number of items updated</returns>
-        public int updateItem(string itemCode, string itemDesc, double newCost)
+        public bool updateItem(string itemCode, string itemDesc, double newCost)
         {
             //Update ItemDesc Set ItemDesc = 'abcdef', Cost = 123 where ItemCode = 'A'
             try
             {
+                int iTest = 0;
+
                 string sSQL = "Update ItemDesc Set ItemDesc = '" + itemDesc +
                     "', Cost = " + newCost + " where ItemCode = '" + itemCode + "'";
 
-               return db.ExecuteNonQuery(sSQL);
-               
+                iTest = db.ExecuteNonQuery(sSQL);
+
+                if (iTest != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// adds a new item to the database
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <param name="itemDesc"></param>
+        /// <param name="itemCost"></param>
+        /// <returns></returns>
+        public bool addNewItemToDataBase(string itemCode, string itemDesc, double itemCost)
+        {
+            //Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
+            try
+            {
+                int iTester = 0;
+
+                string sSQL = "INSERT into ItemDesc (ItemCode, ItemDesc, Cost) Values ('" +
+                    itemCode + "', '" + itemDesc + "', " + itemCost + ")";
+                iTester = db.ExecuteNonQuery(sSQL);
+
+                if (iTester != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -148,24 +239,31 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// adds a new item to the database
+        /// uses SQL to determine if itemcode is already used in item desc table
         /// </summary>
-        /// <param name="itemCode"></param>
-        /// <param name="itemDesc"></param>
-        /// <param name="itemCost"></param>
-        /// <returns></returns>
-        public int addNewItemToDataBase(string itemCode, string itemDesc, double itemCost)
+        /// <param name="sItemCode"></param>
+        /// <returns>bool false if item code doesn't exist
+        /// returns true if it does</returns>
+        public bool checkItemCode(string sItemCode)
         {
-            //Insert into ItemDesc (ItemCode, ItemDesc, Cost) Values ('ABC', 'blah', 321)
             try
             {
-                string sSQL = "INSERT into ItemDesc (ItemCode, ItemDesc, Cost) Values ('" +
-                    itemCode + "', '" + itemDesc + "', " + itemCost + ")";
-                return db.ExecuteNonQuery(sSQL);
+                string sSQL = "SELECT DISTINCT(ItemCode) FROM ItemDesc WHERE ItemCode = '" + sItemCode + "'";
+
+                string sHolderString = db.ExecuteScalarSQL(sSQL);
+
+
+                if (sHolderString == "")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {
-
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
@@ -177,12 +275,21 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public int deleteItemFromDataBase(string itemCode)
+        public bool deleteItemFromDataBase(string itemCode)
         {
             try
             {
                 string sSQL = "Delete from ItemDesc Where ItemCode = '" + itemCode + "'";
-                return db.ExecuteNonQuery(sSQL);
+                int iTester = db.ExecuteNonQuery(sSQL);
+
+                if (iTester != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -190,6 +297,6 @@ namespace GroupProject.Items
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        }           
+        }
     }
 }

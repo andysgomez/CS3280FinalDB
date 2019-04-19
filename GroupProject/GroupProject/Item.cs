@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,7 +12,7 @@ namespace GroupProject.Main
     /// this class will hold item information 
     /// extracted from the database
     /// </summary>
-    public class Item
+    public class Item : INotifyPropertyChanged
     {
         /// <summary>
         /// Single letter representing the 
@@ -29,10 +30,42 @@ namespace GroupProject.Main
         /// </summary>
         private double itemCost;
 
+        /// <summary>
+        /// Contract
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
         //auto generated public properties
-        public string ItemCode { get => itemCode; set => itemCode = value; }
-        public string ItemDescription { get => itemDescription; set => itemDescription = value; }
-        public double ItemCost { get => itemCost; set => itemCost = value; }
+        public string ItemCode
+        {
+            get => itemCode;
+            set
+            {
+                itemCode = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ItemCode"));
+            }
+        }
+        public string ItemDescription
+        {
+            get => itemDescription;
+            set
+            {
+                itemDescription = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ItemDescription"));
+            }
+        }
+        public double ItemCost
+        {
+            get => itemCost;
+            set
+            {
+                itemCost = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ItemCost"));
+            }
+        }
 
         /// <summary>
         /// COnstructor for a jewelry item

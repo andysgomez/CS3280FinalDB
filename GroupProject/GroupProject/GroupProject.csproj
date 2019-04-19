@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="clsDataAccess.cs" />
     <Compile Include="Invoice.cs" />
-    <Compile Include="Items\clsItemsLogicSQL.cs" />
+    <Compile Include="Items\clsItemsLogic.cs" />
     <Compile Include="Items\clsItemsSQL.cs" />
     <Compile Include="Main\clsMainLogic.cs" />
     <Compile Include="Main\clsMainSQL.cs" />

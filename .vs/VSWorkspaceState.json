@@ -3,10 +3,7 @@
     "",
     "\\GroupProject",
     "\\GroupProject\\GroupProject",
-    "\\GroupProject\\GroupProject\\Items",
-    "\\GroupProject\\GroupProject\\Main",
-    "\\GroupProject\\GroupProject\\Properties",
-    "\\GroupProject\\GroupProject\\Search"
+    "\\GroupProject\\GroupProject\\Main"
   ],
   "SelectedNode": "\\GroupProject\\GroupProject.sln",
   "PreviewInSolutionExplorer": false

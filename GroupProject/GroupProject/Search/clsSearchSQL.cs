@@ -1,6 +1,7 @@
 ﻿using GroupProject.Main;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -46,11 +47,11 @@ namespace GroupProject.Search
         /// if it is a DateTime object use .ToShortDateString()
         /// </summary>
         /// <returns></returns>
-        public BindingList<Invoice> loadInvoices(double totalCost = -999.9, string sDate = "1/1/1")//this makes it optional
+        public ObservableCollection<Invoice> loadInvoices(double totalCost = -999.9, string sDate = "1/1/1")//this makes it optional
         {
             try
             {
-                BindingList<Invoice> invoices = new BindingList<Invoice>();
+                ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
 
                 int iRet = 0;
 
@@ -86,7 +87,7 @@ namespace GroupProject.Search
                     DateTime.TryParse(strDate, out date);
                     double.TryParse(strCost, out cost);
 
-                    BindingList<Item> items = loadInvoiceItems(invoiceNumber);
+                    ObservableCollection<Item> items = loadInvoiceItems(invoiceNumber);
                     Invoice invoice = new Invoice(invoiceNumber, date, cost, null);
 
                     invoices.Add(invoice);
@@ -142,7 +143,7 @@ namespace GroupProject.Search
                     DateTime.TryParse(strDate, out date);
                     double.TryParse(strCost, out cost);
 
-                    BindingList<Item> items = loadInvoiceItems(invoiceNum);
+                    ObservableCollection<Item> items = loadInvoiceItems(invoiceNum);
                     invoice = new Invoice(invoiceNum, date, cost, items);
                 }
                 return invoice;
@@ -160,11 +161,11 @@ namespace GroupProject.Search
         /// </summary>
         /// <param name="invoiceNumber"></param>
         /// <returns></returns>
-        private BindingList<Item> loadInvoiceItems(int invoiceNumber)
+        private ObservableCollection<Item> loadInvoiceItems(int invoiceNumber)
         {
             try
             {
-                BindingList<Item> tempList = new BindingList<Item>();
+                ObservableCollection<Item> tempList = new ObservableCollection<Item>();
                 int iRet = 0;
 
                 //these sql statements are taken from the help files

@@ -7,24 +7,29 @@
         mc:Ignorable="d"
         Title="wndItems" Height="450" Width="800" Closing="Window_Closing" Background="#FFFFEAEA" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="95*"/>
-            <ColumnDefinition Width="103*"/>
-        </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="239" Margin="63,61,0,0" VerticalAlignment="Top" Width="657" CanUserAddRows="False" Grid.ColumnSpan="2">
+
+        <DataGrid x:Name="dgItemDesc" ItemsSource="{Binding }" HorizontalAlignment="Left" Height="350" Margin="35,19,0,0" VerticalAlignment="Top" Width="469" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="DgItemDesc_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Item Code" Width="100"/>
-                <DataGridTextColumn Header="Cost" Width="100"/>
-                <DataGridTextColumn Header="Description" Width="250"/>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding Path=ItemCode}" Width="100"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Path=ItemCost}" Width="100"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Path=ItemDescription}" Width="250*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtBoxItemCode" HorizontalAlignment="Left" Height="23" Margin="63,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="txtBoxCostChange" HorizontalAlignment="Left" Height="23" Margin="264,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtBoxDescriptionChange" HorizontalAlignment="Left" Height="23" Margin="158.796,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="63,368,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
-        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="264,369,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
-        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="94,369,0,0" VerticalAlignment="Top" Width="90" Grid.Column="1" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
-        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="255.796,369,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"/>
+        <TextBox x:Name="txtBoxAddItemCode" HorizontalAlignment="Left" Height="25" Margin="35,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"  RenderTransformOrigin="0.59,-1.157" AcceptsTab="True" MaxLength="3" MaxLines="2147483645" TextChanged="Filter_TextChanged"/>
+        <TextBox x:Name="txtBoxAddCostChange" HorizontalAlignment="Left" Height="25" Margin="135,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" PreviewTextInput="TxtBoxAddCostChange_PreviewTextInput" />
+        <TextBox x:Name="txtBoxAddDescriptionChange" HorizontalAlignment="Left" Height="25" Margin="235,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269" TextChanged="Filter_TextChanged"/>
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="523,369,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Click="BtnAddItem_Click" Height="25"/>
+        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="545,255,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Height="25" Click="BtnEditItem_Click"/>
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="671,255,0,0" VerticalAlignment="Top" Width="90" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Height="25" Click="BtnDeleteItem_Click"/>
+        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="610,297,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14" Height="25" Click="BtnClear_Click"/>
+        <Label x:Name="lblNewError" Content="" HorizontalAlignment="Left" Margin="626,368,0,0" VerticalAlignment="Top" Foreground="#FFF10B0B" Width="135" />
+        <Label x:Name="lblItemCode" Content="Item Code: " HorizontalAlignment="Left" Margin="560,46,0,0" VerticalAlignment="Top" Width="176" Background="White"/>
+        <Label x:Name="lblCost" Content="Cost:" HorizontalAlignment="Left" Margin="532,98,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblDesc" Content="Description:" HorizontalAlignment="Left" Margin="518,140,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBoxUpdateCost" HorizontalAlignment="Left" Height="23" Margin="610,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  PreviewTextInput="TxtBoxAddCostChange_PreviewTextInput"/>
+        <TextBox x:Name="txtBoxUpdateDesc" HorizontalAlignment="Left" Height="45" Margin="610,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Filter_TextChanged"/>
+        <Label x:Name="lblEditDeleteError" Content="" HorizontalAlignment="Left" Margin="523,202,0,0" VerticalAlignment="Top" Width="238" Foreground="#FFFA0000"/>
+        <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="610,338,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"  Height="25" Click="BtnDone_Click"></Button>
 
     </Grid>
 </Window>
