@@ -31,12 +31,6 @@ namespace GroupProject.Items
         /// public List used if item is on invoices
         /// </summary>
         private string SInvoiceList;
-        
-
-        /// <summary>
-        /// global boolean flag that will be set when something in the database is changed
-        /// </summary>
-        public bool bDatabaseChange = false;
 
         /// <summary>
         /// Public constructor of the item logic

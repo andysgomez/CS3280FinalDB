@@ -23,6 +23,9 @@ namespace GroupProject.Items
     /// </summary>
     public partial class wndItems : Window
     {
+        /// <summary>
+        /// business logic for the Item window
+        /// </summary>
         clsItemsLogic clsItemLogic;
 
         /// <summary>
@@ -36,6 +39,9 @@ namespace GroupProject.Items
         /// </summary>
         private ObservableCollection<string> OcInvoices;
 
+        /// <summary>
+        /// public bool to alert when itemdesc db changes
+        /// </summary>
         public bool bItemChanged
         {
             get
@@ -44,7 +50,9 @@ namespace GroupProject.Items
             }
         }
 
-
+        /// <summary>
+        /// Item window/wndItems initializer
+        /// </summary>
         public wndItems()
         {
             try
@@ -182,7 +190,7 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// 
+        /// button click to delete items that aren't in an invoice
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -226,7 +234,7 @@ namespace GroupProject.Items
         
 
         /// <summary>
-        /// 
+        /// updates the txtboxes for edit or delete
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -251,7 +259,7 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// 
+        /// button to clear current used txtboxes and updates datagrid
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
