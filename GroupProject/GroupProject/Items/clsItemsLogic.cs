@@ -85,6 +85,8 @@ namespace GroupProject.Items
                 if (dTryingCost > 0)
                 {
                     clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, dTryingCost);
+                    items = clsLogicSQL.getItems();
+
                     return true;
                 }
                 else
@@ -129,6 +131,7 @@ namespace GroupProject.Items
                 if (TryingCost >= 0)
                 {
                     clsLogicSQL.updateItem(sItemCode, sDescription, TryingCost);
+                    items = clsLogicSQL.getItems();
                     return true;
                 }
                 else
@@ -162,6 +165,9 @@ namespace GroupProject.Items
                 if (bIsNotInvoice)
                 {
                     clsLogicSQL.deleteItemFromDataBase(sItemCode);
+
+                    items = clsLogicSQL.getItems();
+
                     return null;
                 }
                 else
