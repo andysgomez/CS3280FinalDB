@@ -379,6 +379,27 @@ namespace GroupProject.Items
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// filter out any bad characters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Filter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                var textboxSender = (TextBox)sender;
+                var cursorPosition = textboxSender.SelectionStart;
+                textboxSender.Text = Regex.Replace(textboxSender.Text, "[^0-9a-zA-Z ]", "");
+                textboxSender.SelectionStart = cursorPosition;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
        
     }
 }
