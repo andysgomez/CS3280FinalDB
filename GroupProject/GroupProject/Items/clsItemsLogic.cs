@@ -168,7 +168,7 @@ namespace GroupProject.Items
                 if (bIsNotInvoice)
                 {
                     clsLogicSQL.deleteItemFromDataBase(sItemCode);
-                    return "";
+                    return null;
                 }
                 else
                 {

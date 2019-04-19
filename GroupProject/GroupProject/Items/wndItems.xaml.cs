@@ -168,6 +168,7 @@ namespace GroupProject.Items
                         else
                         {
                             bItemChange = true;
+                            dgItemDesc.ItemsSource = clsItemLogic.RetrieveItems();
                         }
                     }
                     
@@ -211,6 +212,7 @@ namespace GroupProject.Items
                     else
                     {
                         bItemChange = true;
+                        dgItemDesc.ItemsSource = clsItemLogic.RetrieveItems();
                     }
                     
                 }
@@ -331,6 +333,22 @@ namespace GroupProject.Items
             }
         }
 
-        
+        /// <summary>
+        /// Returns user to main Menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine +
+                                             "HandleError Exception: " + ex.Message);
+            }
+        }
     }
 }

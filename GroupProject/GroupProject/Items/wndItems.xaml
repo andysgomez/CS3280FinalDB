@@ -29,6 +29,7 @@
         <TextBox x:Name="txtBoxUpdateCost" HorizontalAlignment="Left" Height="23" Margin="610,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtBoxUpdateDesc" HorizontalAlignment="Left" Height="45" Margin="610,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblEditDeleteError" Content="" HorizontalAlignment="Left" Margin="523,202,0,0" VerticalAlignment="Top" Width="238" Foreground="#FFFA0000"/>
+        <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="610,338,0,0" VerticalAlignment="Top" Width="75" BorderThickness="2" BorderBrush="Black" Background="White" FontSize="14"  Height="25" Click="BtnDone_Click"></Button>
 
     </Grid>
 </Window>
