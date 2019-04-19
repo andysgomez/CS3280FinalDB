@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Main"
         mc:Ignorable="d"
-        Title="wndMain" Height="500" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Create/Edit/Delete Invoices" Height="500" Width="900" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <RadialGradientBrush>
             <GradientStop Color="White"/>
@@ -21,10 +21,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
+            <Menu DockPanel.Dock="Top"  Width="Auto" HorizontalAlignment="Left">
                 <MenuItem Header="Menu">
                     <MenuItem x:Name="mnuUpdateItems" Header="Update Item Table"  Click="mnuUpdate_Click"/>
-                    <MenuItem x:Name="mnuSearchInvoices" Header="Search Invoice" Click="mnuSearch_Click" />
+                    <MenuItem x:Name="mnuSearchInvoices" Header="Search Invoices" Click="mnuSearch_Click" />
                     <Separator />
                     <MenuItem Header="Exit" Click="mnuExit_Click"/>
 
