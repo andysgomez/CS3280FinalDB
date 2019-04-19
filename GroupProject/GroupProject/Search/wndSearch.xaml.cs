@@ -33,18 +33,20 @@ namespace GroupProject.Search
             try
             {
                 InitializeComponent();
+                clsSearchLogic = new clsSearchLogic();
 
-                clsSearchLogic = new clsSearchLogic();                
+                fillCBOS(clsSearchLogic.AllInvoices);
+               
 
-                fillCBOS(clsSearchLogic.AllInvoices);               
+                dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
 
-                dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;                
             }
             catch (Exception ex)
             {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                                 MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+
         }
 
         /// <summary>

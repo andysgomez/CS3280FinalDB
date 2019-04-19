@@ -30,7 +30,7 @@ namespace GroupProject.Main
         wndItems wndItems;
 
         /// <summary>
-        /// Window varianle to open the search window
+        /// Window varibale to open the search window
         /// </summary>
         wndSearch wndSearch;
 
@@ -138,8 +138,9 @@ namespace GroupProject.Main
         private void mnuSearch_Click(object sender, RoutedEventArgs e)
         {
             try
-            {               
-                this.Hide();                
+            {
+               
+                this.Hide();
                 wndSearch.ShowDialog();
                 this.Show();
                 //make sure that foundInvoice exists
@@ -394,7 +395,7 @@ namespace GroupProject.Main
                     btnNew.IsEnabled = true;
                     btnDelete.IsEnabled = false;
                     btnSaveInvoice.IsEnabled = false;
-                    mnuUpdateItems.IsEnabled = true;                  
+                    mnuUpdateItems.IsEnabled = true;
                 }
 
             }
@@ -465,9 +466,6 @@ namespace GroupProject.Main
         {
             try
             {
-                // Re-enable Save Button to allow saving after searching and fetching order.
-                btnSaveInvoice.IsEnabled = true;
-
                 clsMainLogic.EditingInvoice = true;
                 clsMainLogic.MakingNewInvoice = false;
                 dgCurrentInvoice.IsEnabled = true;
