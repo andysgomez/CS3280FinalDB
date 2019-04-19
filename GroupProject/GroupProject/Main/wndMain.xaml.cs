@@ -158,7 +158,7 @@ namespace GroupProject.Main
                 this.Show();
                 //make sure that foundInvoice exists
                 foundInvoice = wndSearch.returnFoundInvoice();
-                if(foundInvoice.InvoiceNumber == -1 || foundInvoice == null)
+                if(foundInvoice == null || foundInvoice.InvoiceNumber == -1)//if cancel or x was clicked pretend nothing happened
                 {
                     return;
                 }
