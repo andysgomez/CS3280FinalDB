@@ -128,20 +128,7 @@ namespace GroupProject.Main
             }
         }
 
-        /// <summary>
-        /// this is just a nothing method to help with formatting and try catch blocks
-        /// </summary>
-        private void exampleHelper()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
+        
 
         /// <summary>
         /// This is what happens when the search menu item is clicked
@@ -203,7 +190,14 @@ namespace GroupProject.Main
                 clsMainLogic.reloadCatalog();
                 cboItems.ItemsSource = clsMainLogic.getItemsSold();
 
-                //reload any saved state info
+                //reload the current invoice in case its items changed
+                if (foundInvoice != null && foundInvoice.InvoiceNumber != -1)
+                {
+                    clsMainLogic.loadInvoice(foundInvoice.InvoiceNumber);
+                    txtInvoiceNumber.Text = clsMainLogic.CurrentInvoiceNumber.ToString();
+                    txtInvoiceTotal.Text = "$" + clsMainLogic.CurrentInvoiceCost.ToString() + ".00";
+                    dgCurrentInvoice.ItemsSource = clsMainLogic.getCurrentInvoiceItems();
+                }
             }
             catch (Exception ex)
             {
