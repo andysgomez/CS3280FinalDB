@@ -27,7 +27,11 @@ namespace GroupProject.Items
         /// </summary>
         private ObservableCollection<Item> items;
 
-        //ObservableCollection<Item>
+        /// <summary>
+        /// public List used if item is on invoices
+        /// </summary>
+        private string SInvoiceList;
+        
 
         /// <summary>
         /// global boolean flag that will be set when something in the database is changed
@@ -42,6 +46,7 @@ namespace GroupProject.Items
             try
             {
                 clsLogicSQL = new clsItemsSQL();
+                
                 items = clsLogicSQL.getItems();
             }
             catch (Exception ex)
@@ -70,28 +75,28 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// 
+        /// Adds item to the item desc db, 
+        /// checks double for cost
         /// </summary>
         /// <param name="sItemCode"></param>
-        /// <param name="dCost"></param>
+        /// <param name="sCost"></param>
         /// <param name="sDescription"></param>
+        /// <returns>true if cost is valid, false else</returns>
         public bool AddItem(string sItemCode, string sCost, string sDescription)
         {
             try
             {
-                
-                    bool getCost;
+                double dTryingCost = CostCheck(sCost);
 
-                    double TryingCost;
-                    //check corrected cost
-                    getCost = double.TryParse(sCost, out TryingCost);
-
-                    if (getCost)
-                    {
-                        clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, TryingCost);
-                    }
-
+                if (dTryingCost > 0)
+                {
+                    clsLogicSQL.addNewItemToDataBase(sItemCode, sDescription, dTryingCost);
                     return true;
+                }
+                else
+                {
+                    return false;
+                }
                     
             }
             catch (Exception ex)
@@ -119,19 +124,22 @@ namespace GroupProject.Items
         /// <param name="dCost"></param>
         /// <param name="sDescription"></param>
         /// <returns></returns>
-        public void UpdateItem(string sItemCode, string sCost, string sDescription)
+        public bool UpdateItem(string sItemCode, string sCost, string sDescription)
         {
             try
             {
-                bool getCost;
-
-                double TryingCost;
                 //check corrected cost
-                getCost = double.TryParse(sCost, out TryingCost);
+                double TryingCost = CostCheck(sCost);
+                
 
-                if (getCost)
+                if (TryingCost >= 0)
                 {
                     clsLogicSQL.updateItem(sItemCode, sDescription, TryingCost);
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
 
 
@@ -147,20 +155,28 @@ namespace GroupProject.Items
         /// Deletes an Item from itemdesc if item is not in an invoice
         /// </summary>
         /// <param name="sItemCode"></param>
-        /// <returns>0 if item is in an invoice, else 1 if item deleted</returns>
-        public void GetDelete(string sItemCode)
+        /// <returns>returns null collection if not on invoice
+        /// , else string collection of invoices</returns>
+        public string GetDelete(string sItemCode)
         {
             try
             {
                 bool bIsNotInvoice;
-
+                
                 bIsNotInvoice = clsLogicSQL.CheckInvoices(sItemCode);
 
                 if (bIsNotInvoice)
                 {
                     clsLogicSQL.deleteItemFromDataBase(sItemCode);
+                    return "";
+                }
+                else
+                {
+                    SInvoiceList = clsLogicSQL.getInvoicesThatIncludeItem(sItemCode);
+                    return SInvoiceList;
                 }
 
+                
 
             }
             catch (Exception ex)
@@ -168,6 +184,42 @@ namespace GroupProject.Items
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Checks input for cost to be double
+        /// </summary>
+        /// <param name="sCost"></param>
+        /// <returns>returns cost if double and not negative
+        /// -1 if not a double or negative</returns>
+        private double CostCheck(string sCost)
+        {
+            try
+            {
+                double TestCost;
+                
+                if(double.TryParse(sCost, out TestCost))
+                {
+                    if (TestCost < 0)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        return TestCost;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                        MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
         }
 
     }

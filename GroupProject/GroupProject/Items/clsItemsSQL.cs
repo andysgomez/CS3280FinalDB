@@ -95,30 +95,33 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public ObservableCollection<int> getInvoicesThatIncludeItem(string itemCode)
+        public string getInvoicesThatIncludeItem(string itemCode)
         {
             //select distinct(InvoiceNum) from LineItems where ItemCode = 'A'
             //I have never used "distict" in sql before... Im not sure this one will work
             try
             {
-                ObservableCollection<int> temp = new ObservableCollection<int>();
+                ObservableCollection<string> temp = new ObservableCollection<string>();
                 int iRet = 0;
 
                 string sSQL = "select distinct(InvoiceNum) from LineItems where ItemCode = '" + itemCode + "'";
 
                 DataSet ds = db.ExecuteSQLStatement(sSQL, ref iRet);
 
+                string sInvoiceNum = "";
+
                 for (int i = 0; i < iRet; i++)
                 {
-                    string sInvoiceNum = ds.Tables[0].Rows[i][0].ToString();
-
-                    int invoiceNum;
-                    Int32.TryParse(sInvoiceNum, out invoiceNum);
-
-                    temp.Add(invoiceNum);
+                    sInvoiceNum += ds.Tables[0].Rows[i][0].ToString();
+                    
+                    if (i != (iRet - 1))
+                    {
+                        sInvoiceNum += "\n";
+                    }
+                   
                 }
 
-                return temp;
+                return sInvoiceNum;
             }
             catch (Exception ex)
             {

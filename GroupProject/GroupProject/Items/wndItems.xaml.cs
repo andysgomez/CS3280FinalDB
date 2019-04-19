@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,10 +26,23 @@ namespace GroupProject.Items
         clsItemsLogic clsItemLogic;
 
         /// <summary>
-        /// public flag to alert other windows itemdesc db has changed
+        /// bool to let main know if any items in the item desc database have changed
         /// </summary>
-        public bool bItemChange = false;
+        private bool bItemChange = false;
 
+        /// <summary>
+        /// holds list of invoices if item to delete
+        /// is on any invoices
+        /// </summary>
+        private ObservableCollection<string> OcInvoices;
+
+        public bool bItemChanged
+        {
+            get
+            {
+                return bItemChange;
+            }
+        }
 
 
         public wndItems()
@@ -38,6 +52,7 @@ namespace GroupProject.Items
                 InitializeComponent();
 
                 clsItemLogic = new clsItemsLogic();
+                OcInvoices = new ObservableCollection<string>();
                 dgItemDesc.ItemsSource = clsItemLogic.RetrieveItems();
             }
             catch (Exception ex)
@@ -76,25 +91,39 @@ namespace GroupProject.Items
         {
             try
             {
-                string sBoxItemCode = txtBoxItemCode.ToString();
-                string sBoxCostChange = txtBoxCostChange.ToString();
-                string sBoxDescriptionChange = txtBoxDescriptionChange.ToString();
 
+
+                string sBoxItemCode = txtBoxAddItemCode.Text;
+                string sBoxCostChange = txtBoxAddCostChange.Text.ToString();
+                string sBoxDescriptionChange = txtBoxAddDescriptionChange.Text;
+
+                //checks empty strings
                 if (sBoxItemCode == "" || sBoxCostChange == "" || sBoxDescriptionChange == "")
                 {
-                    lblError.Content = "Item Code, Description, and Cost can not be blank";
+                    lblNewError.Content = "Item Code, Description, and Cost can not be blank";
                 }
                 else
                 {
                     bool bItemCodeTest = clsItemLogic.CheckItemCode(sBoxItemCode);
 
+                    //Checks if itemCode is in use
                     if (bItemCodeTest)
                     {
-                        lblError.Content = "That Item Code already exists";
+                        lblNewError.Content = "That Item Code already exists";
                     }
                     else
                     {
-
+                        //determine if cost is valid, executes addItems
+                        if (!(clsItemLogic.AddItem(sBoxItemCode, sBoxCostChange, sBoxDescriptionChange)))
+                        {
+                            lblNewError.Content = "Enter only positive numbers for cost";
+                        }
+                        else
+                        {
+                            bItemChange = true;
+                            ResetText();
+                        }
+                        
                     }
                 }
             }
@@ -104,6 +133,167 @@ namespace GroupProject.Items
                                 MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Edit button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEditItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                //check that item is selected
+                if (dgItemDesc.SelectedIndex == -1)
+                {
+                    lblEditDeleteError.Content = "Select an Item from list";
+                }
+                else
+                {
+                    string sListItemCode = ((Item)dgItemDesc.SelectedItem).ItemCode;
+                    string sListItemCost = txtBoxUpdateCost.Text.ToString();
+                    string sListItemDesc = txtBoxUpdateDesc.Text;
+
+                    if (sListItemCost == "" || sListItemDesc == "")
+                    {
+                        lblEditDeleteError.Content = "Item cost and description can't be blank";
+                    }
+                    else
+                    {
+                        if (!(clsItemLogic.UpdateItem(sListItemCode, sListItemCost, sListItemDesc)))
+                        {
+                            lblEditDeleteError.Content = "Item cost needs to be a positive number";
+                        }
+                        else
+                        {
+                            bItemChange = true;
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgItemDesc.SelectedIndex == -1)
+                {
+                    lblEditDeleteError.Content = "Select an Item from list";
+                }
+                else
+                {
+                    string sInvoices;
+                    string sListItemCode = ((Item)dgItemDesc.SelectedItem).ItemCode;
+
+                    sInvoices = clsItemLogic.GetDelete(sListItemCode);
+
+                    
+                    if (sInvoices != null)
+                    {
+                        
+                        string sDeleteError = "Item cannot be deleted as it is in the following Invoices: \n"
+                                + sInvoices;
+                        MessageBox.Show(sDeleteError);
+                    }
+                    else
+                    {
+                        bItemChange = true;
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }   
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgItemDesc_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ResetText();
+
+                if(dgItemDesc.SelectedItem != null)
+                {
+                    lblItemCode.Content += ((Item)dgItemDesc.SelectedItem).ItemCode;
+                    txtBoxUpdateCost.Text = ((Item)dgItemDesc.SelectedItem).ItemCost.ToString();
+                    txtBoxUpdateDesc.Text = ((Item)dgItemDesc.SelectedItem).ItemDescription;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                                MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ResetText();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Resets the text in added labels and textboxes
+        /// </summary>
+        private void ResetText()
+        {
+            try
+            {
+                if (txtBoxAddCostChange.Text != "" || txtBoxAddDescriptionChange.Text != "" || txtBoxAddItemCode.Text != "")
+                {
+                    txtBoxAddItemCode.Text = "";
+                    txtBoxAddDescriptionChange.Text = "";
+                    txtBoxAddCostChange.Text = "";
+                }
+                else if(lblItemCode.Content.ToString() != "" || txtBoxUpdateCost.Text != "" || txtBoxUpdateDesc.Text != "")
+                {
+                    lblItemCode.Content = "Item Code: ";
+                    txtBoxUpdateCost.Text = "";
+                    txtBoxUpdateDesc.Text = "";
+                }
+
+                dgItemDesc.ItemsSource = clsItemLogic.RetrieveItems();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Exception handling method, 
