@@ -28,11 +28,7 @@ namespace GroupProject.Search
 {
     class clsSearchLogic
     {
-        /// <summary>
-        /// the invoice number to be returned to the main window
-        /// store the invoice number of whatever is found here
-        /// </summary>
-        private int foundInvoiceNumber;
+       
 
         /// <summary>
         /// handle to the sql worker
@@ -56,9 +52,10 @@ namespace GroupProject.Search
         private Invoice invoiceToReturn;
 
 
-        public int FoundInvoiceNumber { get => foundInvoiceNumber; set => foundInvoiceNumber = value; }
+       
         public ObservableCollection<Invoice> InvoicesToDisplay { get => invoicesToDisplay; set => invoicesToDisplay = value; }
         public Invoice InvoiceToReturn { get => invoiceToReturn; set => invoiceToReturn = value; }
+        public ObservableCollection<Invoice> AllInvoices { get => allInvoices; set => allInvoices = value; }
 
         /// <summary>
         /// Constructor for our search logic class
@@ -91,14 +88,14 @@ namespace GroupProject.Search
                 //initialize all variables
                 
                 clsSearchSQL = new clsSearchSQL();
-                allInvoices = new ObservableCollection<Invoice>();
-                allInvoices = clsSearchSQL.loadInvoices();
+                AllInvoices = new ObservableCollection<Invoice>();
+                AllInvoices = clsSearchSQL.loadInvoices();
                 InvoicesToDisplay = new ObservableCollection<Invoice>();//maybe not needed
-                InvoicesToDisplay = allInvoices;
+                InvoicesToDisplay = AllInvoices;
                 
 
-                FoundInvoiceNumber = -1;//this is to test while this window is under construction
-                //selectedInvoice = FoundInvoiceNumber;
+                
+               
             }
             catch (Exception ex)
             {
@@ -112,13 +109,13 @@ namespace GroupProject.Search
         /// Call this method to get the items for the invoice number cbo
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<int> loadInvoiceNumberCBO()
+        public ObservableCollection<int> loadInvoiceNumberCBO(ObservableCollection<Invoice> invoicesToLoad)
         {
             try
             {
                 ObservableCollection<int> temp = new ObservableCollection<int>();
 
-                foreach (Invoice i in allInvoices)
+                foreach (Invoice i in invoicesToLoad)
                 {
                     temp.Add(i.InvoiceNumber);
                 }
@@ -137,13 +134,13 @@ namespace GroupProject.Search
         /// call this method to load the datetime combo box
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<DateTime> loadDTCBO()
+        public ObservableCollection<DateTime> loadDTCBO(ObservableCollection<Invoice> invoicesToLoad)
         {
             try
             {
                 ObservableCollection<DateTime> temp = new ObservableCollection<DateTime>();
 
-                foreach (Invoice invoice in allInvoices)
+                foreach (Invoice invoice in invoicesToLoad)
                 {
                     if(!temp.Contains(invoice.InvoiceDate))
                     {
@@ -166,13 +163,13 @@ namespace GroupProject.Search
         /// call this to load the cost combobox
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<double> loadCostCBO()
+        public ObservableCollection<double> loadCostCBO(ObservableCollection<Invoice> invoicesToLoad)
         {
             try
             {
                 ObservableCollection<double> temp = new ObservableCollection<double>();
 
-                foreach (Invoice invoice in allInvoices)
+                foreach (Invoice invoice in invoicesToLoad)
                 {
                     if(!temp.Contains(invoice.TotalCost))
                     {
@@ -203,7 +200,7 @@ namespace GroupProject.Search
                 ObservableCollection<Invoice> temp = new ObservableCollection<Invoice>();
                 foreach (Invoice invoice in InvoicesToDisplay)
                 {
-                    if ((invoice.InvoiceDate == dt))
+                    if (invoice.InvoiceDate == dt)
                     {
                         temp.Add(invoice);
                     }
@@ -282,6 +279,7 @@ namespace GroupProject.Search
                 InvoicesToDisplay = temp;
 
                 //update all cbolists optional
+               
             }
             catch (Exception ex)
             {
@@ -290,6 +288,7 @@ namespace GroupProject.Search
                         MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
         
     }
 }

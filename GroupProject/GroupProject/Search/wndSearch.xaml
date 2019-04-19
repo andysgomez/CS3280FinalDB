@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Search"
         mc:Ignorable="d"
-        Title="wndSearch" Height="450" Width="800" Closing="Window_Closing" Background="#FFFFEAEA" WindowStartupLocation="CenterScreen">
+        Title="Search Invoices" Height="450" Width="800" Closing="Window_Closing" Background="#FFFFEAEA" WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -13,9 +13,11 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="top" HorizontalAlignment="Center" Grid.Row="0">
-            
+            <TextBlock Text="Invoice Number:" />
             <ComboBox x:Name="cboInvoiceNumbers" Width="75" Margin="5 0" SelectionChanged="CboInvoiceNumbers_SelectionChanged" />
+            <TextBlock Text="Date:" />
             <ComboBox x:Name="cboInvoiceDates" Width="120" Margin="5 0" SelectionChanged="CboInvoiceDates_SelectionChanged"/>
+            <TextBlock Text="Cost:" />
             <ComboBox x:Name="cboInvoiceCosts" Width="75" Margin="5 0" SelectionChanged="CboInvoiceCosts_SelectionChanged"/>
             <Button x:Name="btnReset" Content="Reset Search" HorizontalAlignment="Right" Margin="50 0" Click="BtnReset_Click"/>
         </StackPanel>

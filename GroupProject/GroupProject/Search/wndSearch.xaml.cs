@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,13 +34,9 @@ namespace GroupProject.Search
             {
                 InitializeComponent();
                 clsSearchLogic = new clsSearchLogic();
-                //invoiceToReturn = foundInvoice;
-                cboInvoiceNumbers.ItemsSource = clsSearchLogic.loadInvoiceNumberCBO();
-                //cboInvoiceNumbers.SelectedIndex = 1;
 
-                cboInvoiceDates.ItemsSource = clsSearchLogic.loadDTCBO();
-
-                cboInvoiceCosts.ItemsSource = clsSearchLogic.loadCostCBO();
+                fillCBOS(clsSearchLogic.AllInvoices);
+               
 
                 dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
 
@@ -73,20 +70,7 @@ namespace GroupProject.Search
             }
         }
 
-        /// <summary>
-        /// this is just a nothing method to help with formatting and try catch blocks
-        /// </summary>
-        private void exampleHelper()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
+       
 
         /// <summary>
         /// block the close event
@@ -167,6 +151,7 @@ namespace GroupProject.Search
                     int temp = (int)cboInvoiceNumbers.SelectedItem;
                     clsSearchLogic.trimByInvoiceNumber(temp);
                     dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                    fillCBOS(clsSearchLogic.InvoicesToDisplay);
                 }
             }
             catch (Exception ex)
@@ -190,6 +175,7 @@ namespace GroupProject.Search
                     double temp = (double)cboInvoiceCosts.SelectedItem;
                     clsSearchLogic.trimByCost(temp);
                     dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                    fillCBOS(clsSearchLogic.InvoicesToDisplay);
                 }
             }
             catch (Exception ex)
@@ -213,6 +199,7 @@ namespace GroupProject.Search
                     DateTime temp = (DateTime)cboInvoiceDates.SelectedItem;
                     clsSearchLogic.trimListByDate(temp);
                     dgInvoices.ItemsSource = clsSearchLogic.InvoicesToDisplay;
+                    fillCBOS(clsSearchLogic.InvoicesToDisplay);
                 }
             }
             catch (Exception ex)
@@ -279,6 +266,19 @@ namespace GroupProject.Search
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
             return null;
+        }
+
+        /// <summary>
+        /// helper method to update the cbo's
+        /// </summary>
+        /// <param name="list"></param>
+        private void fillCBOS(ObservableCollection<Invoice> list)
+        {
+            cboInvoiceNumbers.ItemsSource = clsSearchLogic.loadInvoiceNumberCBO(list);
+
+            cboInvoiceDates.ItemsSource = clsSearchLogic.loadDTCBO(list);
+
+            cboInvoiceCosts.ItemsSource = clsSearchLogic.loadCostCBO(list);
         }
     }
 }
